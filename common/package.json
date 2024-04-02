@@ -1,0 +1,17 @@
+{
+  "name": "@dheeraj1320/medium-common",
+  "version": "2.2.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tsc": "^2.0.4",
+    "typescript": "^5.4.3",
+    "zod": "^3.22.4"
+  }
+}

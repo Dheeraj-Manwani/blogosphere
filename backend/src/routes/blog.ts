@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { verify } from "hono/jwt";
-import { createBlogInput, updateBlogInput } from "@dheeraj1320/medium-common";
+import { createPostInput, updatePostInput } from "@dheeraj1320/medium-common";
 
 export const blogRouter = new Hono<{
   Bindings: {
@@ -16,6 +16,7 @@ export const blogRouter = new Hono<{
 
 //* Middleware to check bearer token
 blogRouter.use("/*", async (c, next) => {
+  try{
   const jwt = c.req.header("Authorization");
   if (!jwt) {
     c.status(401);
@@ -29,6 +30,10 @@ blogRouter.use("/*", async (c, next) => {
   }
   c.set("userId", payload.id);
   await next();
+}catch(err){
+  c.status(401);
+  return c.json({ error: "unauthorized" });
+}
 });
 
 //* Create blog for an auther
@@ -40,7 +45,7 @@ blogRouter.post("/", async (c) => {
 
   const body = await c.req.json();
 
-  const { success } = createBlogInput.safeParse(body);
+  const { success } = createPostInput.safeParse(body);
   if (!success) {
     c.status(400);
     return c.json({ error: "invalid input" });
@@ -72,7 +77,7 @@ blogRouter.put("/", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-  const { success } = updateBlogInput.safeParse(body);
+  const { success } = updatePostInput.safeParse(body);
   if (!success) {
     c.status(400);
     return c.json({ error: "invalid input" });

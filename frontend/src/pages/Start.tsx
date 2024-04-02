@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-import { Appbar } from "../components/Appbar"; // Make sure to import your Appbar component
-
+import { Appbar } from "../components/Appbar";
 export const Start = () => {
   return (
     <div className="flex flex-col h-screen">
@@ -23,21 +21,6 @@ export const Start = () => {
               </video>
             </div>
           </div>
-
-          {/* <div className="flex justify-center gap-8 mt-10">
-            <Link
-              to="/blogs"
-              className="text-gray-500 hover:text-gray-800 font-semibold px-6 py-3  flex items-center justify-center"
-            >
-              View Blogs
-            </Link>
-            <Link
-              to="/blogs/new"
-              className="bg-gray-700 hover:bg-gray-800 text-white px-6 py-3 rounded-md shadow-md flex items-center justify-center"
-            >
-              Write a Blog
-            </Link>
-          </div> */}
         </div>
       </div>
     </div>

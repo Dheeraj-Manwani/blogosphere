@@ -15,7 +15,7 @@ export const Appbar = () => {
         {!currHref.endsWith("blogs") && (
           <Link
             to={"/blogs"}
-            className=" text-gray-500 hover:text-gray-800 transition-all duration-300 focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-lg py-2 my-0.5 focus:outline-none"
+            className=" text-gray-500 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
           >
             View Blogs
           </Link>
@@ -23,7 +23,7 @@ export const Appbar = () => {
         {!currHref.endsWith("/blogs/new") && (
           <Link
             to={"/blogs/new"}
-            className="text-gray-500 hover:text-gray-800 transition-all duration-300 focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg text-lg px-4 py-2 my-0.5 focus:outline-none"
+            className="text-gray-500 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
           >
             Create New
           </Link>

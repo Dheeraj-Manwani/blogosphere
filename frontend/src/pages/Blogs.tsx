@@ -1,13 +1,23 @@
+import { useState } from "react";
 import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
+import { Modal } from "../components/Modal";
+
 import { useBlogs } from "../hooks";
 import { v4 as uuidv4 } from "uuid";
 
 export const Blogs = () => {
-  const { loading, blogs } = useBlogs();
+  const { loading, blogs, error } = useBlogs();
+  const [isVisible, setIsVisible] = useState(true)
 
   if (loading) {
     return <div>loading</div>;
+  }
+
+  if(error){
+    return <div className="w-screen h-screen flex flex-col justify-center">
+      <Modal isVisible = {isVisible} setIsVisible = {setIsVisible} content="Please login before you view the blogs." href="/signin"></Modal>
+    </div>
   }
 
   return (
