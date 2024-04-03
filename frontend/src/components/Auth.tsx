@@ -4,14 +4,18 @@ import { BACKEND_URL } from "../config";
 import { SignupType } from "@dheeraj1320/medium-common";
 import axios from "axios";
 import Spinner from "./Spinner";
+import { Modal } from "./Modal";
+import { useRecoilState } from "recoil";
+import { loggedUser } from "../recoil/atom/loggedUser";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [postInputs, setPostInputs] = useState<SignupType>({
     name: "",
     email: "",
     password: "",
   });
+  const [_, setLoggedUser] = useRecoilState(loggedUser);
 
   const navigate = useNavigate();
 
@@ -23,6 +27,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         postInputs
       );
       const jwt = response.data.jwt;
+      setLoggedUser(postInputs.name);
       localStorage.setItem("token", jwt);
       navigate("/blogs");
     } catch (err) {
@@ -108,7 +113,6 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               }
               disabled={loading}
             />
-            <Spinner loading={true} />
             <button
               type="button"
               onClick={sendRequest}
@@ -117,6 +121,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               {type === "signin" ? "Sign in" : "Sign up"}
             </button>
           </div>
+          <Spinner loading={loading} />
+          {/* <Modal /> */}
         </div>
       </div>
     </div>
@@ -148,7 +154,9 @@ export const LabelledInput = ({
           type={type || "text"}
           id="first_name"
           onChange={onChange}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
+            disabled ? "bg-gray-300" : ""
+          }`}
           placeholder={placeholder}
           disabled={disabled}
           required

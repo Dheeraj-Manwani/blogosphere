@@ -1,33 +1,49 @@
 import { useState, CSSProperties } from "react";
-import {
-  CircleLoader,
-  DotLoader,
-  HashLoader,
-  PacmanLoader,
-  RingLoader,
-} from "react-spinners";
-// import ClipLoader from "react-spinners/ClipLoader";
+import { DotLoader } from "react-spinners";
+import ClipLoader from "react-spinners/ClipLoader";
 
-const override: CSSProperties = {
-  // display: "block",
+const cssProp: CSSProperties = {
+  display: "block",
   margin: "0 auto",
-  // borderColor: "red",
-  display: "absolute",
+  borderColor: "red",
+  position: "absolute",
+  top: "47%",
+  left: "21%",
+};
+const cssPropCenter: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+  position: "absolute",
+  top: "47%",
+  left: "42%",
 };
 
-function Spinner({ loading }: { loading: boolean }) {
+function App({ loading }: { loading: boolean }) {
   return (
-    <div className="sweet-loading">
-      <DotLoader
-        color="black"
-        loading={loading}
-        cssOverride={override}
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    </div>
+    <>
+      <div className={`sweet-loading lg:hidden`}>
+        <DotLoader
+          color={"black"}
+          loading={loading}
+          cssOverride={cssPropCenter}
+          size={80}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+      <div className={`sweet-loading hidden lg:block`}>
+        <DotLoader
+          color={"black"}
+          loading={loading}
+          cssOverride={cssProp}
+          size={80}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+    </>
   );
 }
 
-export default Spinner;
+export default App;

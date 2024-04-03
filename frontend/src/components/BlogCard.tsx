@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import profile from "./../assets/profile.png";
 
 interface BlogCardProps {
   id: number;
@@ -67,12 +68,15 @@ export function Avatar({
         className
       }
     >
-      <span className=" text-gray-100 ">
-        {name
-          .split(" ")
-          .map((n) => n[0].toUpperCase())
-          .join("")}
-      </span>
+      {name && (
+        <span className=" text-gray-100 ">
+          {name
+            .split(" ")
+            .map((n) => n[0].toUpperCase())
+            .join("")}
+        </span>
+      )}
+      {name === "" && <img src={profile} alt="login" />}
     </div>
   );
 }
