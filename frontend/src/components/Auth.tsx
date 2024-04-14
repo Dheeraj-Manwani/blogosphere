@@ -4,8 +4,7 @@ import { BACKEND_URL } from "../config";
 import { SignupType } from "@dheeraj1320/medium-common";
 import axios from "axios";
 import Spinner from "./Spinner";
-import { Modal } from "./Modal";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { loggedUser } from "../recoil/atom/loggedUser";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
@@ -16,7 +15,6 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     password: "",
   });
   const [_, setLoggedUser] = useRecoilState(loggedUser);
-  const loggedInUserName = useRecoilValue(loggedUser);
 
   const navigate = useNavigate();
 

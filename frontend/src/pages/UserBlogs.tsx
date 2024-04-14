@@ -21,7 +21,7 @@ export const UserBlogs = () => {
       .then((response) => {
         setBlogs(response.data);
       })
-      .catch((err) => {
+      .catch(() => {
         setIsVisible(true);
       });
   }, []);

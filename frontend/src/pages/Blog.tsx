@@ -10,6 +10,7 @@ export const Blog = () => {
 
   return (
     <div>
+      {/*@ts-ignore*/}
       <FullBlog blog={blog} />
     </div>
   );

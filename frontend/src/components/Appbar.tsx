@@ -4,7 +4,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { loggedUser } from "../recoil/atom/loggedUser";
 
 export const Appbar = () => {
-  const currHref = window.location.href;
   const navigate = useNavigate();
 
   const loggedInUserName = useRecoilValue(loggedUser);

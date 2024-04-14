@@ -1,6 +1,5 @@
-import { useState, CSSProperties } from "react";
+import { CSSProperties } from "react";
 import { DotLoader } from "react-spinners";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const cssProp: CSSProperties = {
   display: "block",

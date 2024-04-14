@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Appbar } from "./Appbar";
@@ -41,7 +41,7 @@ export class MyEditor extends Component<MyEditorProps> {
               editor={ClassicEditor}
               data=""
               // onReady={}
-              onChange={(event, editor) => {
+              onChange={(_, editor) => {
                 const data = editor.getData();
                 setEditorContent({ ...editorContent, content: data });
               }}
