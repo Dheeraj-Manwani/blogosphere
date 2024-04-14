@@ -17,11 +17,11 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
           <div className="text-slate-600 text-lg"> Author</div>
           <div className="flex">
             <div className="pr-4 flex flex-col justify-center">
-              <Avatar name={blog.author.name} className="w-8 h-8" />
+              <Avatar name={blog.authorName} className="w-8 h-8" />
             </div>
             <div>
               <div className="text-xl font-bold">
-                {blog.author.name || "Anonymous"}
+                {blog.authorName || "Unknown"}
               </div>
               <div className="pt-2 text-slate-500">
                 Random catch phrase about the author's ability to grab the

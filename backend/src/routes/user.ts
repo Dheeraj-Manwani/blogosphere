@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { sign } from "hono/jwt";
+import { sign, verify } from "hono/jwt";
 import { signupInput, signinInput } from "@dheeraj1320/medium-common";
 
 export const userRouter = new Hono<{
@@ -32,9 +32,12 @@ userRouter.post("/signup", async (c) => {
       },
     });
 
-    const token = await sign({ id: user.id }, c.env.JWT_SECRET);
+    const token = await sign(
+      { id: user.id, name: body.name },
+      c.env.JWT_SECRET
+    );
 
-    return c.json({ token });
+    return c.json({ token, name: body.name });
   } catch (e) {
     c.status(403);
     console.log(e);
@@ -67,7 +70,19 @@ userRouter.post("/signin", async (c) => {
     return c.json({ error: "user not found" });
   }
 
-  const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
+  const jwt = await sign({ id: user.id, name: user.name }, c.env.JWT_SECRET);
   console.log(jwt);
-  return c.json({ jwt });
+  return c.json({ token: jwt, name: user.name });
+});
+
+userRouter.get("/logged-in-user-name", async (c) => {
+  const jwt = c.req.header("Authorization");
+  if (!jwt) {
+    return c.json({ name: "" });
+  }
+  const payload = await verify(jwt, c.env.JWT_SECRET);
+  if (!payload) {
+    return c.json({ name: "" });
+  }
+  return c.json({ name: payload.name });
 });

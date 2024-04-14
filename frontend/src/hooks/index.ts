@@ -5,7 +5,8 @@ import axios from "axios";
 export interface Blog {
   title: string;
   content: string;
-  id: number;
+  id: string;
+  authorName: string;
   author: {
     name: string;
   };
@@ -34,7 +35,6 @@ export const useBlog = ({ id }: { id: string }) => {
 export const useBlogs = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     axios
@@ -46,12 +46,8 @@ export const useBlogs = () => {
       .then((response) => {
         setBlogs(response.data);
         setLoading(false);
-      }).catch((err) => {
-        setLoading(false);
-        setError(true)
-        console.log(err)
       });
   }, []);
 
-  return { loading, blogs, error };
+  return { loading, blogs };
 };

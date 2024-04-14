@@ -3,12 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { MyEditor } from "../components/Editor";
-import { CreateBlogInput } from "@dheeraj1320/medium-common";
+import { CreatePostType } from "@dheeraj1320/medium-common";
 import { BACKEND_URL } from "../config";
 import { Modal } from "../components/Modal";
 
 export const NewBlog = () => {
-  const [editorContent, setEditorContent] = useState<CreateBlogInput>({
+  const [editorContent, setEditorContent] = useState<CreatePostType>({
     title: "",
     content: "",
   });

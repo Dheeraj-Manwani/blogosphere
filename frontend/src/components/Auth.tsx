@@ -5,7 +5,7 @@ import { SignupType } from "@dheeraj1320/medium-common";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { Modal } from "./Modal";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { loggedUser } from "../recoil/atom/loggedUser";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
@@ -16,6 +16,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     password: "",
   });
   const [_, setLoggedUser] = useRecoilState(loggedUser);
+  const loggedInUserName = useRecoilValue(loggedUser);
 
   const navigate = useNavigate();
 
@@ -26,9 +27,11 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         `${BACKEND_URL}/api/v1/${type === "signin" ? "signin" : "signup"}`,
         postInputs
       );
-      const jwt = response.data.jwt;
-      setLoggedUser(postInputs.name);
-      localStorage.setItem("token", jwt);
+      const token = response.data.token;
+      console.log("inside auth:::", response.data.name);
+      setLoggedUser(response.data.name);
+      // console.log("logged in user name form")
+      localStorage.setItem("token", token);
       navigate("/blogs");
     } catch (err) {
       console.log(err);
@@ -152,7 +155,7 @@ export const LabelledInput = ({
         </label>
         <input
           type={type || "text"}
-          id="first_name"
+          id={label}
           onChange={onChange}
           className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
             disabled ? "bg-gray-300" : ""
