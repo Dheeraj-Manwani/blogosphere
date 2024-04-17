@@ -1,8 +1,17 @@
+import { Quote } from "../components/Quote";
+import { Auth } from "../components/Auth";
 
 export const Signin = () => {
-    return (
+  return (
+    <div>
+      <div className="grid lg:grid-cols-2">
         <div>
-        <h1>Signin</h1>
+          <Auth type="signin"></Auth>
         </div>
-    )
-}
+        <div className="hidden lg:block">
+          <Quote></Quote>
+        </div>
+      </div>
+    </div>
+  );
+};
