@@ -10,6 +10,8 @@ import { loggedUser } from "./recoil/atom/loggedUser";
 import axios from "axios";
 import { BACKEND_URL } from "./config";
 import { UserBlogs } from "./pages/UserBlogs";
+import { Blog } from "./pages/Blog";
+import { NewBlog } from "./pages/NewBlog";
 
 function App() {
   const loggedInUserName = useRecoilValue(loggedUser);
@@ -40,8 +42,8 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/user-blogs" element={<UserBlogs />} />
-          {/* <Route path="/blogs/:id" element={<Blog />} /> */}
-          {/* <Route path="/blogs/new" element={<NewBlog />} /> */}
+          <Route path="/blogs/:id" element={<Blog />} />
+          <Route path="/blogs/new" element={<NewBlog />} />
         </Routes>
       </BrowserRouter>
     </>

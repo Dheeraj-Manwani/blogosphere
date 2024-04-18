@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { BACKEND_URL } from "../config";
 // import { SignupType } from "@dheeraj1320/medium-common";
 import axios from "axios";
-// import Spinner from "./Spinner";
+import Spinner from "./Spinner";
 import { useRecoilState } from "recoil";
 import { loggedUser } from "../recoil/atom/loggedUser";
 
@@ -122,7 +122,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               {type === "signin" ? "Sign in" : "Sign up"}
             </button>
           </div>
-          {/* <Spinner loading={loading} /> */}
+          <Spinner loading={loading} />
           {/* <Modal /> */}
         </div>
       </div>
