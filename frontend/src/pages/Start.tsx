@@ -17,7 +17,10 @@ export const Start = () => {
             </div>
             <div>
               <video autoPlay muted loop id="myVideo" className="h-52">
-                <source src="src/assets/Globe.mp4" type="video/mp4" />
+                <a
+                  href="https://res.cloudinary.com/dx2hdfv0w/video/upload/v1713558234/Globe_frb8d0.mp4"
+                  type="video/mp4"
+                />
                 Your browser does not support the video tag.
               </video>
             </div>
