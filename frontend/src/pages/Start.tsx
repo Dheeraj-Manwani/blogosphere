@@ -16,12 +16,8 @@ export const Start = () => {
               </h3>
             </div>
             <div>
-              <video autoPlay muted loop id="myVideo" className="h-52">
-                <a
-                  href="https://res.cloudinary.com/dx2hdfv0w/video/upload/v1713558234/Globe_frb8d0.mp4"
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
+              <video autoPlay loop muted className="h-64 w-64">
+                <source src="https://res.cloudinary.com/dx2hdfv0w/video/upload/v1713558234/Globe_frb8d0.mp4" />
               </video>
             </div>
           </div>
