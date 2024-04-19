@@ -18,6 +18,7 @@ export const Start = () => {
             <div>
               <video autoPlay muted loop id="myVideo" className="h-52">
                 <source src="src/assets/Globe.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
               </video>
             </div>
           </div>
