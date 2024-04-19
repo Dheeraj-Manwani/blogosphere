@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import { BACKEND_URL } from "../config";
-import { SignupType } from "@dheeraj1320/medium-common";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { useRecoilState } from "recoil";
@@ -9,7 +8,7 @@ import { loggedUser } from "../recoil/atom/loggedUser";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [postInputs, setPostInputs] = useState<SignupType>({
+  const [postInputs, setPostInputs] = useState({
     name: "",
     email: "",
     password: "",
