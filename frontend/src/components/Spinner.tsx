@@ -18,7 +18,7 @@ const cssPropCenter: CSSProperties = {
   left: "42%",
 };
 
-function App({ loading }: { loading: boolean }) {
+function Spinner({ loading }: { loading: boolean }) {
   return (
     <>
       <div className={`sweet-loading lg:hidden`}>
@@ -45,4 +45,4 @@ function App({ loading }: { loading: boolean }) {
   );
 }
 
-export default App;
+export default Spinner;

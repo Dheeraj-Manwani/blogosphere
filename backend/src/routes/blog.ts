@@ -68,7 +68,7 @@ blogRouter.post("/", async (c) => {
 });
 
 //* Update blog for an auther
-blogRouter.put("/", async (c) => {
+blogRouter.put("/:id", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -79,16 +79,26 @@ blogRouter.put("/", async (c) => {
     c.status(400);
     return c.json({ error: "invalid input" });
   }
+  const id = c.req.param("id");
+  const authorId = c.get("userId");
 
-  await prisma.post.update({
-    where: {
-      id: body.id,
-    },
-    data: {
-      title: body.title,
-      content: body.content,
-    },
-  });
+  try {
+    const res = await prisma.post.update({
+      where: {
+        id: id,
+        authorId: authorId,
+      },
+      data: {
+        title: body.title,
+        content: body.content,
+      },
+    });
+  } catch (err) {
+    c.json({
+      error: true,
+      message: "The blog you are trying to update is not yours",
+    });
+  }
 
   return c.json({
     id: body.id,

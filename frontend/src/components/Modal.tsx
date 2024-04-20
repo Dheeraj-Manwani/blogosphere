@@ -1,22 +1,20 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { modal } from "../recoil/atom/atom";
 
 interface ModalProps {
   isVisible: boolean;
-  setIsVisible: any;
-  content: string;
+  message: string;
   href?: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  isVisible,
-  setIsVisible,
-  content,
-  href,
-}) => {
+export const Modal: React.FC<ModalProps> = ({ isVisible, message, href }) => {
+  const modalState = useRecoilValue(modal);
+  const [_, setModal] = useRecoilState(modal);
   const navigate = useNavigate();
 
   const handleClick = (href: string) => {
-    setIsVisible(false);
+    setModal({ ...modalState, visible: false });
     if (href) navigate(href);
   };
   return (
@@ -30,7 +28,7 @@ export const Modal: React.FC<ModalProps> = ({
           <button
             type="button"
             className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
-            onClick={() => setIsVisible(false)}
+            onClick={() => setModal({ ...modalState, visible: false })}
           >
             <svg
               className="w-3 h-3"
@@ -66,7 +64,7 @@ export const Modal: React.FC<ModalProps> = ({
               />
             </svg>
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              {content}
+              {message}
             </h3>
             <button
               type="button"

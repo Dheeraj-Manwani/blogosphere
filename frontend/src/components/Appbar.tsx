@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Avatar } from "./BlogCard";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { loggedUser } from "../recoil/atom/loggedUser";
+import { loggedUser } from "../recoil/atom/atom";
 
 export const Appbar = () => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { BACKEND_URL } from "../config";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { useRecoilState } from "recoil";
-import { loggedUser } from "../recoil/atom/loggedUser";
+import { loggedUser } from "../recoil/atom/atom";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const [loading, setLoading] = useState<boolean>(false);

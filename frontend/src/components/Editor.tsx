@@ -20,9 +20,10 @@ export class MyEditor extends Component<MyEditorProps> {
       textarea.style.height = textarea.scrollHeight + "px";
     };
 
+    console.log("re - rendered editor");
+
     return (
       <div className="w-full h-screen flex flex-col">
-        <Appbar />
         <form className="mx-auto px-4 w-full max-w-5xl ">
           <div className="w-full text-4xl font-semibold">
             <textarea
@@ -39,7 +40,7 @@ export class MyEditor extends Component<MyEditorProps> {
           <div>
             <CKEditor
               editor={ClassicEditor}
-              data=""
+              data={editorContent.content}
               // onReady={}
               onChange={(_, editor) => {
                 const data = editor.getData();

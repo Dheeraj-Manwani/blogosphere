@@ -14,7 +14,12 @@ export interface Blog {
 
 export const useBlog = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [blog, setBlog] = useState<Blog>();
+
+  if (!id) {
+    return { loading: false, blog: { content: "", title: "" }, error: false };
+  }
 
   useEffect(() => {
     axios
@@ -26,10 +31,15 @@ export const useBlog = ({ id }: { id: string }) => {
       .then((response) => {
         setBlog(response.data);
         setLoading(false);
+      })
+      .catch((err) => {
+        setError(true);
+        setLoading(false);
+        console.log(err);
       });
   }, [id]);
 
-  return { loading, blog };
+  return { loading, blog, error };
 };
 
 export const useBlogs = () => {

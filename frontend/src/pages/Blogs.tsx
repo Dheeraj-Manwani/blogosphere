@@ -13,7 +13,6 @@ export const Blogs = () => {
   console.log(blogs);
   return (
     <div>
-      <Appbar />
       <div className="flex justify-center w-screen max-w-full">
         <div className="w-full max-w-15/16 m-auto">
           {blogs.map((blog) => (
