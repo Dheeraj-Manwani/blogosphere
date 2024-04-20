@@ -15,7 +15,7 @@ function App() {
   const loggedInUserName = useRecoilValue(loggedUser);
   const [_, setLoggedUser] = useRecoilState(loggedUser);
 
-  if (localStorage.getItem("token") !== "" && loggedInUserName === "") {
+  if (localStorage.getItem("token") && loggedInUserName === "") {
     try {
       axios
         .get(`${BACKEND_URL}/api/v1/logged-in-user-name`, {
