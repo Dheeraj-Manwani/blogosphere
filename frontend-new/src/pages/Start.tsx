@@ -1,7 +1,9 @@
 import { Appbar } from "../components/Appbar";
 export const Start = () => {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-screen">
+      <Appbar />
+
       <div className="flex-grow flex justify-center">
         <div className="text-center">
           <div className="flex justify-center mt-40">
@@ -14,8 +16,8 @@ export const Start = () => {
               </h3>
             </div>
             <div>
-              <video autoPlay loop muted className="h-64 w-64">
-                <source src="https://res.cloudinary.com/dx2hdfv0w/video/upload/v1713558234/Globe_frb8d0.mp4" />
+              <video autoPlay muted loop id="myVideo" className="h-52">
+                <source src="src/assets/Globe.mp4" type="video/mp4" />
               </video>
             </div>
           </div>

@@ -6,7 +6,7 @@ const cssProp: CSSProperties = {
   margin: "0 auto",
   borderColor: "red",
   position: "absolute",
-  top: "47%",
+  top: "53%",
   left: "21%",
 };
 const cssPropCenter: CSSProperties = {
@@ -14,35 +14,51 @@ const cssPropCenter: CSSProperties = {
   margin: "0 auto",
   borderColor: "red",
   position: "absolute",
-  top: "47%",
-  left: "42%",
+  top: "53%",
+  left: "43%",
 };
 
-function Spinner({ loading }: { loading: boolean }) {
-  return (
-    <>
-      <div className={`sweet-loading lg:hidden`}>
+function Spinner({ loading, type }: { loading: boolean; type: string }) {
+  if (type === "Auth") {
+    return (
+      <>
+        <div className={`sweet-loading lg:hidden`}>
+          <DotLoader
+            color={"black"}
+            loading={loading}
+            cssOverride={cssPropCenter}
+            size={80}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+        <div className={`sweet-loading hidden lg:block`}>
+          <DotLoader
+            color={"black"}
+            loading={loading}
+            cssOverride={cssProp}
+            size={80}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      </>
+    );
+  }
+  if (type === "Editor") {
+    return (
+      <div className={`sweet-loading`}>
         <DotLoader
           color={"black"}
           loading={loading}
-          cssOverride={cssPropCenter}
-          size={80}
+          cssOverride={{ ...cssPropCenter, left: "44%", top: "40%" }}
+          size={150}
           aria-label="Loading Spinner"
           data-testid="loader"
         />
       </div>
-      <div className={`sweet-loading hidden lg:block`}>
-        <DotLoader
-          color={"black"}
-          loading={loading}
-          cssOverride={cssProp}
-          size={80}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      </div>
-    </>
-  );
+    );
+  }
 }
 
 export default Spinner;

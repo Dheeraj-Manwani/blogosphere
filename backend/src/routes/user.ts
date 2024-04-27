@@ -41,7 +41,7 @@ userRouter.post("/signup", async (c) => {
   } catch (e) {
     c.status(403);
     console.log(e);
-    return c.json({ error: "error while signing up" });
+    return c.json({ error: true, message: "error while signing up" });
   }
 });
 
@@ -55,7 +55,7 @@ userRouter.post("/signin", async (c) => {
   const { success } = signinInput.safeParse(body);
   if (!success) {
     c.status(400);
-    return c.json({ error: "invalid input" });
+    return c.json({ error: true, message: "Invalid Credentials!!" });
   }
 
   const user = await prisma.user.findUnique({
@@ -67,7 +67,7 @@ userRouter.post("/signin", async (c) => {
 
   if (!user) {
     c.status(403);
-    return c.json({ error: "user not found" });
+    return c.json({ error: true, message: "Incorrect username or password!!" });
   }
 
   const jwt = await sign({ id: user.id, name: user.name }, c.env.JWT_SECRET);

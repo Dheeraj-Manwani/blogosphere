@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import profile from "./../assets/profile.png";
-import { Button } from "./Button";
 
 interface BlogCardProps {
   id: string;
@@ -26,6 +25,7 @@ export const BlogCard = ({
 }: BlogCardProps) => {
   return (
     <div className="border rounded-lg shadow-lg p-4 my-4 w-11/12 max-w-screen-md m-auto">
+      {/* <Link to={`/blogs/${id}`}> */}
       <div className="flex mb-1">
         <div>
           <Avatar
@@ -47,9 +47,7 @@ export const BlogCard = ({
       </div>
       <div className="text-xl font-semibold">{title}</div>
       <div className="text-md overflow-clip">
-        {content.length > 200
-          ? htmlToText(content).slice(0, 200) + "..."
-          : htmlToText(content)}
+        {htmlToText(content).slice(0, 200) + "..."}
       </div>
       <div className="flex justify-between items-center">
         <div className="text-sm text-slate-500 font-thin pt-4">{`${Math.ceil(
@@ -57,12 +55,30 @@ export const BlogCard = ({
         )} minute(s) read`}</div>
 
         {type !== "editable" && (
-          <Button icon="arrow" href={`/blogs/${id}`} text="Read more" />
-        )}
-        {type === "editable" && (
-          <Button icon="edit" href={`/blogs/edit/${id}`} text="Edit" />
+          <Link
+            to={`/blogs/${id}`}
+            className="inline-flex items-center px-3 py-2 mt-3 text-sm font-medium text-center text-white bg-gray-800 hover:bg-gray-900 rounded-lg focus:ring-4 focus:outline-none "
+          >
+            Read more
+            <svg
+              className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </Link>
         )}
       </div>
+      {/* </Link> */}
     </div>
   );
 };

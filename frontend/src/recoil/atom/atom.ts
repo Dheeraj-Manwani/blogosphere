@@ -7,5 +7,5 @@ export const loggedUser = atom({
 
 export const modal = atom({
   key: "modal",
-  default: { visible: true, message: "Something went wrong!", href: "" },
+  default: { visible: false, message: "Something went wrong!", href: "" },
 });

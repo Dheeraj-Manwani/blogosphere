@@ -1,12 +1,13 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Avatar } from "./BlogCard";
-import { useRecoilState } from "recoil";
-import { loggedUser } from "../recoil/atom/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { loggedUser } from "../recoil/atom/loggedUser";
 
 export const Appbar = () => {
   const navigate = useNavigate();
 
-  const [loggedInUserName, setLoggedUser] = useRecoilState(loggedUser);
+  const loggedInUserName = useRecoilValue(loggedUser);
+  const [_, setLoggedUser] = useRecoilState(loggedUser);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -25,21 +26,21 @@ export const Appbar = () => {
       <div className="flex justify-center">
         <NavLink
           to={"/user-blogs"}
-          className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none "
+          className="text-gray-500 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none "
           end
         >
           My Blogs
         </NavLink>
         <NavLink
           to={"/blogs"}
-          className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
+          className=" text-gray-500 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
           end
         >
           View Blogs
         </NavLink>
         <NavLink
           to={"/blogs/new"}
-          className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
+          className="text-gray-500 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
           end
         >
           Write New
@@ -47,7 +48,7 @@ export const Appbar = () => {
         {localStorage.getItem("token") && (
           <Link
             to={"#"}
-            className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
+            className="text-gray-500 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
             onClick={handleLogout}
           >
             Logout

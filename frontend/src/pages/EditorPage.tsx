@@ -4,7 +4,7 @@ import { MyEditor } from "../components/Editor";
 import { useBlog } from "../hooks";
 import Spinner from "../components/Spinner";
 import { createNewBlog, updateBlog } from "../api/Blog";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { modal } from "../recoil/atom/atom";
 import { MESSAGES } from "./../data/data.js";
 
@@ -13,7 +13,7 @@ export const NewBlog = () => {
     title: "",
     content: "",
   });
-  const [_, setModalState] = useRecoilState(modal);
+  const setModalState = useSetRecoilState(modal);
   const { id } = useParams();
   const { loading, blog, error } = useBlog({ id: id || "" });
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export const NewBlog = () => {
 
   useEffect(() => {
     if (error) {
-      navigate("/blogs/new");
+      setModalState({ visible: true, message: error, href: "/blogs/new" });
     }
     if (blog && blog.title && blog.content) {
       setEditorContent({
@@ -65,7 +65,7 @@ export const NewBlog = () => {
         editorContent={editorContent}
         onSubmit={handleSubmit}
       />
-      <Spinner loading={loading} />
+      <Spinner loading={loading} type="Editor" />
     </>
   );
 };

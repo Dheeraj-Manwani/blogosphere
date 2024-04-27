@@ -82,27 +82,33 @@ blogRouter.put("/:id", async (c) => {
   const id = c.req.param("id");
   const authorId = c.get("userId");
 
-  try {
-    const res = await prisma.post.update({
-      where: {
-        id: id,
-        authorId: authorId,
-      },
-      data: {
-        title: body.title,
-        content: body.content,
-      },
-    });
-  } catch (err) {
-    c.json({
-      error: true,
-      message: "The blog you are trying to update is not yours",
+  if (authorId) {
+    try {
+      const res = await prisma.post.update({
+        where: {
+          id: id,
+          authorId: authorId,
+        },
+        data: {
+          title: body.title,
+          content: body.content,
+        },
+      });
+    } catch (err) {
+      c.json({
+        error: true,
+        message: "The blog you are trying to update is not yours",
+      });
+    }
+
+    return c.json({
+      id: body.id,
+      message: "blog updated successfully",
     });
   }
-
-  return c.json({
-    id: body.id,
-    message: "blog updated successfully",
+  c.json({
+    error: true,
+    message: "The blog you are trying to update is not yours",
   });
 });
 
@@ -126,7 +132,7 @@ blogRouter.get("/user-blogs", async (c) => {
 
   if (!authorId) {
     c.status(401);
-    c.json({ error: "You need to be logged in to see your Blogs!!" });
+    return c.json({ error: "You need to be logged in to see your Blogs!!" });
   }
 
   const blogs = await prisma.post.findMany({
@@ -175,6 +181,14 @@ blogRouter.get("/:id", async (c) => {
       },
     },
   });
+
+  if (!blog) {
+    c.status(404);
+    return c.json({
+      error: true,
+      message: "The blog you are looking for does not exists!!",
+    });
+  }
 
   return c.json(blogsDTOConverter(blog));
 });
