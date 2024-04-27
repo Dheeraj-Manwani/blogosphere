@@ -14,7 +14,7 @@ export interface Blog {
 
 export const useBlog = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
   const [blog, setBlog] = useState<Blog>();
 
   if (!id) {
@@ -32,7 +32,7 @@ export const useBlog = ({ id }: { id: string }) => {
         setBlog(response.data);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setLoading(false);
         setError(err.response.data.message);
         console.log(err);

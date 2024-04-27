@@ -5,13 +5,10 @@ import { Blog } from "../hooks";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { modal } from "../recoil/atom/atom";
-import { Modal } from "../components/Modal";
 import { useSetRecoilState } from "recoil";
-import { MESSAGES } from "../data/data";
 
 export const UserBlogs = () => {
   const [blogs, setBlogs] = useState<Blog[]>();
-  // const [isVisible, setIsVisible] = useState<boolean>(false);
   const setModalState = useSetRecoilState(modal);
 
   useEffect(() => {
@@ -50,12 +47,6 @@ export const UserBlogs = () => {
           ))}
         </div>
       </div>
-      {/* <Modal
-        isVisible={isVisible}
-        setIsVisible={setIsVisible}
-        content="You need to log in before looking at your blogs!!"
-        href="/signin"
-      /> */}
     </div>
   );
 };

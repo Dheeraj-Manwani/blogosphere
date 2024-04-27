@@ -45,8 +45,12 @@ export const NewBlog = () => {
   };
 
   useEffect(() => {
-    if (error) {
-      setModalState({ visible: true, message: error, href: "/blogs/new" });
+    if (error !== "") {
+      setModalState({
+        visible: true,
+        message: error === true || error === false ? "" : error,
+        href: "/blogs/new",
+      });
     }
     if (blog && blog.title && blog.content) {
       setEditorContent({

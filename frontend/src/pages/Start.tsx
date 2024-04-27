@@ -1,4 +1,3 @@
-import { Appbar } from "../components/Appbar";
 export const Start = () => {
   return (
     <div className="flex flex-col h-full">

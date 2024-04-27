@@ -1,8 +1,6 @@
 import { Component } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { Appbar } from "./Appbar";
-// import { type } from "./../../../common/dist/index.d";
 
 interface MyEditorProps {
   setEditorContent: any;

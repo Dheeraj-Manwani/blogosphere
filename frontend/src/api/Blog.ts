@@ -15,10 +15,10 @@ export const createNewBlog = async (title: string, content: string) => {
         },
       }
     );
-    return true;
+    return { error: false };
   } catch (err) {
     console.log(err);
-    return false;
+    return { error: true };
   }
 };
 
@@ -40,9 +40,9 @@ export const updateBlog = async (
         },
       }
     );
-    return true;
+    return { error: false };
   } catch (err) {
     console.log(err);
-    return false;
+    return { error: true };
   }
 };

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import { BACKEND_URL } from "../config";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 import Spinner from "./Spinner";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { loggedUser, modal } from "../recoil/atom/atom";
@@ -30,7 +30,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       setLoggedUser(response.data.name);
       localStorage.setItem("token", token);
       navigate("/blogs");
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
       setModalState({
         visible: true,
