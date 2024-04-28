@@ -7,6 +7,7 @@ export interface Blog {
   content: string;
   id: string;
   authorName: string;
+  publishedOn: string;
   author: {
     name: string;
   };
@@ -42,13 +43,17 @@ export const useBlog = ({ id }: { id: string }) => {
   return { loading, blog, error };
 };
 
-export const useBlogs = () => {
+export const useBlogs = (filter?: boolean) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
+    const url = filter
+      ? `${BACKEND_URL}/api/v1/blogs/user-blogs`
+      : `${BACKEND_URL}/api/v1/blogs/bulk`;
     axios
-      .get(`${BACKEND_URL}/api/v1/blogs/bulk`, {
+      .get(url, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -56,8 +61,13 @@ export const useBlogs = () => {
       .then((response) => {
         setBlogs(response.data);
         setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(true);
+        console.log(err);
       });
   }, []);
 
-  return { loading, blogs };
+  return { loading, blogs, error };
 };

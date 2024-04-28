@@ -13,27 +13,30 @@ export const NewBlog = () => {
     title: "",
     content: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const setModalState = useSetRecoilState(modal);
   const { id } = useParams();
   const { loading, blog, error } = useBlog({ id: id || "" });
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    console.log("inside submit handler");
-
     if (!editorContent.content || !editorContent.title) {
       setModalState({ visible: true, message: MESSAGES.editorEmpty, href: "" });
       return;
     }
     if (!id) {
+      setIsSubmitting(true);
       await createNewBlog(editorContent.title, editorContent.content);
+      setIsSubmitting(false);
       navigate("/blogs");
     } else {
+      setIsSubmitting(true);
       const res = await updateBlog(
         id,
         editorContent.title,
         editorContent.content
       );
+      setIsSubmitting(false);
       if (res.error) {
         setModalState({
           visible: true,
@@ -41,14 +44,15 @@ export const NewBlog = () => {
           href: "/blogs",
         });
       }
+      navigate("/user-blogs");
     }
   };
 
   useEffect(() => {
-    if (error !== "") {
+    if (error) {
       setModalState({
         visible: true,
-        message: error === true || error === false ? "" : error,
+        message: error === true ? "" : error,
         href: "/blogs/new",
       });
     }
@@ -57,8 +61,6 @@ export const NewBlog = () => {
         title: blog?.title || "",
         content: blog?.content || "",
       });
-
-      console.log("insode adcdjsb ", blog);
     }
   }, [blog, error]);
 
@@ -69,7 +71,7 @@ export const NewBlog = () => {
         editorContent={editorContent}
         onSubmit={handleSubmit}
       />
-      <Spinner loading={loading} type="Editor" />
+      <Spinner loading={loading || isSubmitting} type="Editor" />
     </>
   );
 };

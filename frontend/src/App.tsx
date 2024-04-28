@@ -1,4 +1,3 @@
-import axios from "axios";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Signup } from "./pages/Signup";
 import { Signin } from "./pages/Signin";
@@ -6,31 +5,28 @@ import { Blogs } from "./pages/Blogs";
 import { Blog } from "./pages/Blog";
 import { NewBlog } from "./pages/EditorPage";
 import { Start } from "./pages/Start";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { loggedUser } from "./recoil/atom/atom";
-import { BACKEND_URL } from "./config";
 import { UserBlogs } from "./pages/UserBlogs";
 import { Root } from "./pages/Root";
+import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
 
 function App() {
-  const loggedInUserName = useRecoilValue(loggedUser);
-  const [_, setLoggedUser] = useRecoilState(loggedUser);
+  const [loggedInUser, setLoggedUser] = useRecoilState(loggedUser);
 
-  if (localStorage.getItem("token") && loggedInUserName === "") {
-    try {
-      axios
-        .get(`${BACKEND_URL}/api/v1/logged-in-user-name`, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          setLoggedUser(res.data.name);
-        });
-    } catch (err) {
-      console.log(err);
+  useEffect(() => {
+    if (
+      localStorage.getItem("token") &&
+      loggedInUser?.name === "" &&
+      loggedInUser?.email === ""
+    ) {
+      const decoded: { name: string; email: string } = jwtDecode(
+        localStorage.getItem("token") || ""
+      );
+      setLoggedUser({ name: decoded.name, email: decoded.email });
     }
-  }
+  }, []);
 
   return (
     <>

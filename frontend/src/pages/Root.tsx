@@ -6,7 +6,6 @@ import { modal } from "../recoil/atom/atom";
 
 export const Root = () => {
   const { visible, message, href } = useRecoilValue(modal);
-  console.log("in root  ", visible);
   return (
     <>
       <Appbar />

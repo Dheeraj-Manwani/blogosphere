@@ -4,6 +4,7 @@ export interface blogsDTO {
   id: string;
   content: string;
   title: string;
+  publishedOn: Date;
   authorName: string;
 }
 
@@ -52,6 +53,7 @@ export const getAllBlogs = async (prisma: any, c: any) => {
       content: true,
       title: true,
       id: true,
+      publishedOn: true,
       author: {
         select: {
           name: true,
@@ -66,7 +68,7 @@ export const getAllBlogs = async (prisma: any, c: any) => {
   return c.json(blogsDTO);
 };
 
-export const blogsDTOConverter = (blog: Blog) => {
+export const blogsDTOConverter = (blog: any) => {
   const { author, ...blogObj } = blog;
   blogObj.authorName = blog.author?.name;
   // console.log(blogObj);

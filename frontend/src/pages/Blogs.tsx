@@ -1,5 +1,5 @@
 import { BlogCard } from "../components/BlogCard";
-
+import { Skeletons } from "../components/Skeletons";
 import { useBlogs } from "../hooks";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,9 +7,8 @@ export const Blogs = () => {
   const { loading, blogs } = useBlogs();
 
   if (loading) {
-    return <div>loading</div>;
+    return <Skeletons type="card" />;
   }
-  console.log(blogs);
   return (
     <div>
       <div className="flex justify-center w-screen max-w-full">
@@ -20,7 +19,7 @@ export const Blogs = () => {
               authorName={blog.authorName}
               title={blog.title}
               content={blog.content}
-              publishedDate="10th March 2024"
+              publishedDate={blog.publishedOn}
               key={uuidv4()}
             />
           ))}

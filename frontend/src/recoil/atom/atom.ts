@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 export const loggedUser = atom({
   key: "loggedUserState",
-  default: "",
+  default: { name: "", email: "" },
 });
 
 export const modal = atom({

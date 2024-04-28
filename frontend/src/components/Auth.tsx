@@ -26,8 +26,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         postInputs
       );
       const token = response.data.token;
-      console.log("inside auth:::", response.data.name);
-      setLoggedUser(response.data.name);
+      setLoggedUser({ name: response.data.name, email: response.data.email });
       localStorage.setItem("token", token);
       navigate("/blogs");
     } catch (err: any) {
@@ -43,7 +42,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
   return (
     <div className="h-[88.5vh] flex justify-center flex-col">
-      <div className="flex justify-center">
+      <div className="flex justify-center -translate-y-10">
         <div>
           <div className="px-10">
             {type === "signin" && (

@@ -33,14 +33,13 @@ userRouter.post("/signup", async (c) => {
     });
 
     const token = await sign(
-      { id: user.id, name: body.name },
+      { id: user.id, name: body.name, email: body.email },
       c.env.JWT_SECRET
     );
 
-    return c.json({ token, name: body.name });
+    return c.json({ token, name: body.name, email: body.email });
   } catch (e) {
     c.status(403);
-    console.log(e);
     return c.json({ error: true, message: "error while signing up" });
   }
 });
@@ -70,9 +69,11 @@ userRouter.post("/signin", async (c) => {
     return c.json({ error: true, message: "Incorrect username or password!!" });
   }
 
-  const jwt = await sign({ id: user.id, name: user.name }, c.env.JWT_SECRET);
-  console.log(jwt);
-  return c.json({ token: jwt, name: user.name });
+  const jwt = await sign(
+    { id: user.id, name: user.name, email: body.email },
+    c.env.JWT_SECRET
+  );
+  return c.json({ token: jwt, name: user.name, email: body.email });
 });
 
 userRouter.get("/logged-in-user-name", async (c) => {

@@ -2,20 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+#bg-video {
+  /* background: url("https://res.cloudinary.com/dx2hdfv0w/video/upload/v1713558234/Globe_frb8d0.mp4"); */
+}
+
 .ck.ck-content {
   padding-left: 25px;
   height: 300px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .ck.ck-content {
     height: 400px;
   }
-}
+} */
 
 .ck.ck-content h2 {
   font-size: 2rem;
   font-weight: 700;
+}
+
+.ck.ck-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.ck.ck-content h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .logo-font {

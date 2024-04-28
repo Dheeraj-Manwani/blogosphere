@@ -26,7 +26,6 @@ blogRouter.use("/*", async (c, next) => {
   try {
     const jwt = c.req.header("Authorization");
     if (jwt && jwt.length > 12) {
-      console.log("inside middleware ::::::    ", jwt);
       const token = jwt.split(" ")[1];
       if (!token || token === "null" || token.length < 10) await next();
       const payload = await verify(token, c.env.JWT_SECRET);
@@ -37,7 +36,6 @@ blogRouter.use("/*", async (c, next) => {
     }
     await next();
   } catch (err) {
-    console.log(err);
     c.status(401);
     return c.json({ error: "error occured while processing token" });
   }
@@ -45,7 +43,6 @@ blogRouter.use("/*", async (c, next) => {
 
 //* Create blog for an auther
 blogRouter.post("/", async (c) => {
-  console.log(c.get("userId"));
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -58,7 +55,6 @@ blogRouter.post("/", async (c) => {
     return c.json({ error: "invalid input" });
   }
   const id = c.get("userId");
-  console.log("creating a blog");
 
   if (id) {
     return await createBlog(c, prisma, id, body);
@@ -117,8 +113,6 @@ blogRouter.get("/bulk", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  // console.log(c.json(await getAllBlogs(prisma, c)));
-  // return await getAllBlogs(prisma, c);
   return await getAllBlogs(prisma, c);
 });
 
@@ -135,7 +129,7 @@ blogRouter.get("/user-blogs", async (c) => {
     return c.json({ error: "You need to be logged in to see your Blogs!!" });
   }
 
-  const blogs = await prisma.post.findMany({
+  const blogs: any = await prisma.post.findMany({
     where: {
       authorId,
     },
@@ -143,6 +137,7 @@ blogRouter.get("/user-blogs", async (c) => {
       title: true,
       content: true,
       id: true,
+      publishedOn: true,
       author: {
         select: {
           name: true,
@@ -174,6 +169,7 @@ blogRouter.get("/:id", async (c) => {
       title: true,
       content: true,
       id: true,
+      publishedOn: true,
       author: {
         select: {
           name: true,

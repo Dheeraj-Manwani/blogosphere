@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import profile from "./../assets/profile.png";
 import { Button } from "./Button";
+import { formatDate } from "../util/util";
 
 interface BlogCardProps {
   id: string;
@@ -42,7 +42,7 @@ export const BlogCard = ({
           <Circle />
         </div>
         <div className="font-thin pl-2 text-slate-500 text-sm flex justify-center flex-col">
-          {publishedDate}
+          {formatDate(publishedDate)}
         </div>
       </div>
       <div className="text-xl font-semibold">{title}</div>
@@ -80,7 +80,6 @@ export function Avatar({
   className?: string;
   type?: string;
 }) {
-  console.log("Avatar ::::: ", name);
   return (
     <div
       className={
@@ -97,9 +96,7 @@ export function Avatar({
         </span>
       )}
       {!name && type === "link" && (
-        <Link to={"/signin"}>
-          <img src={profile} alt="login" className="bg-white cursor-pointer" />
-        </Link>
+        <img src={profile} alt="login" className="bg-white cursor-pointer" />
       )}
       {!name && type !== "link" && (
         <img src={profile} alt="login" className="bg-white" />

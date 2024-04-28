@@ -8,6 +8,25 @@ interface MyEditorProps {
   onSubmit: any;
 }
 
+const editorConfiguration = {
+  toolbar: {
+    items: [
+      "undo",
+      "redo",
+      "|",
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "|",
+      "blockQuote",
+      "bulletedList",
+      "numberedList",
+    ],
+    shouldNotGroupWhenFull: false,
+  },
+};
+
 export class MyEditor extends Component<MyEditorProps> {
   render() {
     const { setEditorContent, editorContent, onSubmit } = this.props;
@@ -40,6 +59,7 @@ export class MyEditor extends Component<MyEditorProps> {
               editor={ClassicEditor}
               data={editorContent.content}
               // onReady={}
+              config={editorConfiguration}
               onChange={(_, editor) => {
                 const data = editor.getData();
                 setEditorContent({ ...editorContent, content: data });

@@ -27,7 +27,7 @@ export const Modal: React.FC<ModalProps> = ({ isVisible, message, href }) => {
           <button
             type="button"
             className="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
-            onClick={() => setModalState({ ...modalState, visible: false })}
+            onClick={() => handleClick(href || "")}
           >
             <svg
               className="w-3 h-3"

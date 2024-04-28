@@ -1,35 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BlogCard } from "../components/BlogCard";
 import { v4 as uuidv4 } from "uuid";
-import { Blog } from "../hooks";
-import axios from "axios";
-import { BACKEND_URL } from "../config";
+import { useBlogs } from "../hooks";
 import { modal } from "../recoil/atom/atom";
 import { useSetRecoilState } from "recoil";
+import { Skeletons } from "../components/Skeletons";
+import { MESSAGES } from "../data/data";
 
 export const UserBlogs = () => {
-  const [blogs, setBlogs] = useState<Blog[]>();
   const setModalState = useSetRecoilState(modal);
 
+  const { blogs, loading, error } = useBlogs(true);
+
   useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/api/v1/blogs/user-blogs`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        setBlogs(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-        setModalState({
-          visible: true,
-          message: e.response.data.error,
-          href: "/signin",
-        });
+    if (error) {
+      setModalState({
+        visible: true,
+        message: MESSAGES.signInToSeeBlogs,
+        href: "/signin",
       });
-  }, []);
+    }
+  }, [error]);
+
+  if (loading) {
+    return <Skeletons type="card" />;
+  }
   return (
     <div>
       <div className="flex justify-center w-screen max-w-full">

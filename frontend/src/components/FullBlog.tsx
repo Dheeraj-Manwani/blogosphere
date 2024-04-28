@@ -1,20 +1,23 @@
 import { Blog } from "../hooks";
-import { Avatar, htmlToText } from "./BlogCard";
+import { formatDate } from "../util/util";
+import { Avatar } from "./BlogCard";
+import ReactHtmlParser from "react-html-parser";
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
   return (
     <div>
-      <div className="flex justify-center"></div>
-      <div className="grid grid-cols-12 px-10 w-full pt-200 max-w-screen-xl pt-12">
-        <div className="col-span-8">
+      <div className="flex flex-col gap-7 lg:flex-row px-10 w-full pt-200 max-w-screen-xl py-12">
+        <div className="w-full lg:w-8/12">
           <div className="text-5xl font-extrabold">{blog.title}</div>
-          <div className="text-slate-500 pt-2">Posted on 2nd December 2023</div>
-          <div className="pt-4">{htmlToText(blog.content)}</div>
+          <div className="text-slate-500 pt-2">
+            Posted on {formatDate(blog.publishedOn)}
+          </div>
+          <div className="pt-4">{ReactHtmlParser(blog.content)}</div>
         </div>
-        <div className="col-span-4">
+        <div className="w-1/2 lg:w-4/12">
           <div className="text-slate-600 text-lg"> Author</div>
-          <div className="flex">
-            <div className="pr-4 flex flex-col justify-center">
+          <div className="flex ">
+            <div className="pr-4 flex flex-col pt-4 pl-2">
               <Avatar name={blog.authorName} className="w-8 h-8" />
             </div>
             <div>
@@ -22,8 +25,9 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
                 {blog.authorName || "Unknown"}
               </div>
               <div className="pt-2 text-slate-500">
-                Random catch phrase about the author's ability to grab the
-                user's attention
+                {blog.authorName || "The author of this blog "} is a visionary
+                thinker, consistently pushing boundaries and offering fresh
+                insights that inspire and provoke thought.
               </div>
             </div>
           </div>
