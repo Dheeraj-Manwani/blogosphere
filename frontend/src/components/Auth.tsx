@@ -5,6 +5,7 @@ import axios from "axios";
 import Spinner from "./Spinner";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { loggedUser, modal } from "../recoil/atom/atom";
+import { MESSAGES } from "../data/data";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,6 +20,17 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const navigate = useNavigate();
 
   const sendRequest = async () => {
+    if (
+      (!postInputs.email || !postInputs.name || !postInputs.password) &&
+      type === "signup"
+    ) {
+      setModalState({
+        visible: true,
+        message: MESSAGES.allFieldsRequired,
+        href: "",
+      });
+      return;
+    }
     setLoading(true);
     try {
       const response = await axios.post(

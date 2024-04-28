@@ -39,8 +39,9 @@ userRouter.post("/signup", async (c) => {
 
     return c.json({ token, name: body.name, email: body.email });
   } catch (e) {
-    c.status(403);
-    return c.json({ error: true, message: "error while signing up" });
+    c.status(409);
+    console.log(e);
+    return c.json({ error: true, message: "Email already exists!!" });
   }
 });
 
