@@ -1,7 +1,6 @@
 import { Blog } from "../hooks";
 import { formatDate } from "../util/util";
 import { Avatar } from "./BlogCard";
-import ReactHtmlParser from "react-html-parser";
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
   return (
@@ -12,7 +11,10 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
           <div className="text-slate-500 pt-2">
             Posted on {formatDate(blog.publishedOn)}
           </div>
-          <div className="pt-4">{ReactHtmlParser(blog.content)}</div>
+          <div
+            className="pt-4"
+            dangerouslySetInnerHTML={{ __html: blog.content }}
+          ></div>
         </div>
         <div className="w-1/2 lg:w-4/12">
           <div className="text-slate-600 text-lg"> Author</div>
