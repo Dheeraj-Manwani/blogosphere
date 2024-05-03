@@ -48,7 +48,7 @@ export class MyEditor extends Component<MyEditorProps> {
     console.log("re - rendered editor");
 
     return (
-      <div className="w-full h-screen flex flex-col">
+      <div className="w-full flex flex-col mb-6">
         <form className="mx-auto px-4 w-full max-w-5xl ">
           <div className="w-full text-3xl lg:text-4xl font-semibold">
             <textarea
