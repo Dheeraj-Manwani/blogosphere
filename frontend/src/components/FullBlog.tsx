@@ -7,7 +7,9 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
     <div>
       <div className="flex flex-col gap-7 lg:flex-row px-10 w-full pt-200 max-w-screen-xl py-12">
         <div className="w-full lg:w-8/12">
-          <div className="text-5xl font-extrabold">{blog.title}</div>
+          <div className="text-4xl lg:text-5xl font-extrabold">
+            {blog.title}
+          </div>
           <div className="text-slate-500 pt-2">
             Posted on {formatDate(blog.publishedOn)}
           </div>
@@ -16,7 +18,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
             dangerouslySetInnerHTML={{ __html: blog.content }}
           ></div>
         </div>
-        <div className="w-1/2 lg:w-4/12">
+        <div className="w-full lg:w-4/12">
           <div className="text-slate-600 text-lg"> Author</div>
           <div className="flex ">
             <div className="pr-4 flex flex-col pt-4 pl-2">
