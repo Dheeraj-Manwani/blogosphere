@@ -50,7 +50,7 @@ export class MyEditor extends Component<MyEditorProps> {
     return (
       <div className="w-full h-screen flex flex-col">
         <form className="mx-auto px-4 w-full max-w-5xl ">
-          <div className="w-full text-4xl font-semibold">
+          <div className="w-full text-3xl lg:text-4xl font-semibold">
             <textarea
               id="title"
               className="w-full mt-9 focus:outline-none"
