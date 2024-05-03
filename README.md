@@ -51,5 +51,5 @@ $ npm run dev
 
 ---
 
-> GitHub [](https://github.com/amitmerchant1990) &nbsp;&middot;&nbsp;
+> GitHub [@Dheeraj-Manwani](https://github.com/Dheeraj-Manwani) &nbsp;&middot;&nbsp;
 > Twitter [@dkManwani2000](https://twitter.com/dkManwani2000)
