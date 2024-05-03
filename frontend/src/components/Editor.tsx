@@ -5,6 +5,8 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 interface MyEditorProps {
   setEditorContent: any;
   editorContent: any;
+  setEditorTitle: any;
+  editorTitle: any;
   onSubmit: any;
 }
 
@@ -29,7 +31,13 @@ const editorConfiguration = {
 
 export class MyEditor extends Component<MyEditorProps> {
   render() {
-    const { setEditorContent, editorContent, onSubmit } = this.props;
+    const {
+      setEditorContent,
+      editorContent,
+      setEditorTitle,
+      editorTitle,
+      onSubmit,
+    } = this.props;
 
     const adjustHeight = () => {
       const textarea: any = document.getElementById("title");
@@ -46,10 +54,11 @@ export class MyEditor extends Component<MyEditorProps> {
             <textarea
               id="title"
               className="w-full mt-9 focus:outline-none"
-              value={editorContent.title}
+              value={editorTitle}
               placeholder="Blog title"
               onChange={(e) => {
-                setEditorContent({ ...editorContent, title: e.target.value });
+                // setEditorContent({ ...editorContent, title: e.target.value });
+                setEditorTitle(e.target.value);
                 adjustHeight();
               }}
             />
@@ -57,12 +66,13 @@ export class MyEditor extends Component<MyEditorProps> {
           <div>
             <CKEditor
               editor={ClassicEditor}
-              data={editorContent.content}
+              data={editorContent}
               // onReady={}
               config={editorConfiguration}
               onChange={(_, editor) => {
                 const data = editor.getData();
-                setEditorContent({ ...editorContent, content: data });
+                // setEditorContent({ ...editorContent, content: data });
+                setEditorContent(data);
               }}
               // onBlur={(event, editor) => {
               //   console.log("Blur.", editor);

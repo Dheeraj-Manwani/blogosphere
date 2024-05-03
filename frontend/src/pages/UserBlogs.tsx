@@ -35,7 +35,7 @@ export const UserBlogs = () => {
               authorName={blog.authorName}
               title={blog.title}
               content={blog.content}
-              publishedDate="10th March 2024"
+              publishedDate={blog.publishedOn}
               key={uuidv4()}
               type="editable"
             />

@@ -2,20 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-#bg-video {
-  /* background: url("https://res.cloudinary.com/dx2hdfv0w/video/upload/v1713558234/Globe_frb8d0.mp4"); */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .ck.ck-content {
   padding-left: 25px;
   height: 300px;
 }
-
-/* @media (max-width: 768px) {
-  .ck.ck-content {
-    height: 400px;
-  }
-} */
 
 .ck.ck-content h2 {
   font-size: 2rem;
@@ -42,5 +41,5 @@
 }
 
 body {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  /* font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; */
 }

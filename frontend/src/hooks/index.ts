@@ -34,8 +34,8 @@ export const useBlog = ({ id }: { id: string }) => {
         setLoading(false);
       })
       .catch((err: any) => {
-        setLoading(false);
         setError(err.response.data.message);
+        setLoading(false);
         console.log(err);
       });
   }, [id]);

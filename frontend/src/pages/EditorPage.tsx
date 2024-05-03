@@ -9,10 +9,13 @@ import { modal } from "../recoil/atom/atom";
 import { MESSAGES } from "./../data/data.js";
 
 export const NewBlog = () => {
-  const [editorContent, setEditorContent] = useState({
-    title: "",
-    content: "",
-  });
+  // const [editorContent, setEditorContent] = useState({
+  //   title: "",
+  //   content: "",
+  // });
+  const [editorContent, setEditorContent] = useState("");
+  const [editorTitle, setEditorTitle] = useState("");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const setModalState = useSetRecoilState(modal);
   const { id } = useParams();
@@ -20,22 +23,18 @@ export const NewBlog = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    if (!editorContent.content || !editorContent.title) {
+    if (!editorContent || !editorTitle) {
       setModalState({ visible: true, message: MESSAGES.editorEmpty, href: "" });
       return;
     }
     if (!id) {
       setIsSubmitting(true);
-      await createNewBlog(editorContent.title, editorContent.content);
+      await createNewBlog(editorTitle, editorContent);
       setIsSubmitting(false);
       navigate("/blogs");
     } else {
       setIsSubmitting(true);
-      const res = await updateBlog(
-        id,
-        editorContent.title,
-        editorContent.content
-      );
+      const res = await updateBlog(id, editorTitle, editorContent);
       setIsSubmitting(false);
       if (res.error) {
         setModalState({
@@ -48,6 +47,8 @@ export const NewBlog = () => {
     }
   };
 
+  console.log("Editor page rerender");
+
   useEffect(() => {
     if (error) {
       setModalState({
@@ -57,18 +58,18 @@ export const NewBlog = () => {
       });
     }
     if (blog && blog.title && blog.content) {
-      setEditorContent({
-        title: blog?.title || "",
-        content: blog?.content || "",
-      });
+      setEditorContent(blog.content);
+      setEditorTitle(blog.title);
     }
-  }, [blog, error]);
+  }, [loading]);
 
   return (
     <>
       <MyEditor
         setEditorContent={setEditorContent}
         editorContent={editorContent}
+        setEditorTitle={setEditorTitle}
+        editorTitle={editorTitle}
         onSubmit={handleSubmit}
       />
       <Spinner loading={loading || isSubmitting} type="Editor" />
