@@ -18,7 +18,7 @@ export const Modal: React.FC<ModalProps> = ({ isVisible, message, href }) => {
   };
   return (
     <div
-      className={`fixed top-0 left-0 w-full flex items-center justify-center md:inset-0 h-[calc(100%-1rem)] max-h-full ${
+      className={`z-50 fixed top-0 left-0 w-full flex items-center justify-center md:inset-0 h-[calc(100%-1rem)] max-h-full ${
         !isVisible && "hidden"
       }`}
     >

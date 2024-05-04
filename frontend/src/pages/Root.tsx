@@ -9,6 +9,7 @@ export const Root = () => {
   return (
     <>
       <Appbar />
+      <div className="p-11"></div>
       <Outlet />
       <Modal isVisible={visible} message={message} href={href} />
     </>

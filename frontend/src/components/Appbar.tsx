@@ -18,7 +18,7 @@ export const Appbar = () => {
   };
 
   return (
-    <nav className="bg-white border-gray-200 shadow-md">
+    <nav className="bg-white border-gray-200 shadow-md absolute w-full z-20">
       <div className=" flex flex-wrap items-center justify-between mx-1 sm:mx-6 p-5 ">
         <Link
           to="/"
@@ -28,6 +28,8 @@ export const Appbar = () => {
             BlogoSphere
           </span>
         </Link>
+
+        {/* SideBar */}
         <div className="flex flex-row-reverse items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse lg:w-40 md:w-30">
           <button
             className="flex text-sm  rounded-full md:me-0"
@@ -44,7 +46,7 @@ export const Appbar = () => {
           </button>
           {/* <!-- Dropdown menu --> */}
           <div
-            className={`z-50 absolute -translate-x-7 md:-translate-x-7 top-10  ${
+            className={` absolute -translate-x-7 md:-translate-x-7 top-10  ${
               profileExpand ? "" : "hidden"
             } my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-xl w-40 border border-gray-200`}
             id="user-dropdown"
@@ -122,127 +124,56 @@ export const Appbar = () => {
             </svg>
           </button>
         </div>
+
+        {/* Appbar */}
         <div
           className={`items-center justify-between
            ${menuExpand ? "" : "hidden"} w-full md:flex md:w-auto md:order-1`}
           id="navbar-user"
         >
           <ul
-            className="flex flex-col font-medium m-auto p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white"
+            className="flex flex-col font-medium m-auto p-4 md:p-0 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:bg-white md:border-none"
             onClick={() => setMenuExpand(false)}
           >
             <li>
               <NavLink
                 to="/"
-                className="hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:bg-transparent md:p-0"
+                className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:bg-transparent md:p-0"
                 end
               >
                 Home
               </NavLink>
-              <Link
-                to="/"
-                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
-              >
-                Home
-              </Link>
             </li>
             <li>
               <NavLink
                 to="/blogs"
-                className=" hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
+                className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
                 end
               >
                 Blogs
               </NavLink>
-              <Link
-                to="/blogs"
-                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
-              >
-                Blogs
-              </Link>
             </li>
             <li>
               <NavLink
                 to="/user-blogs"
-                className=" hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
+                className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
                 end
               >
                 My Blogs
               </NavLink>
-              <Link
-                to="/user-blogs"
-                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
-              >
-                My Blogs
-              </Link>
             </li>
             <li>
               <NavLink
                 to="blogs/new"
-                className="hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent  md:p-0"
+                className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent  md:p-0"
                 end
               >
                 Write
               </NavLink>
-              <Link
-                to="blogs/new"
-                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
-              >
-                Write
-              </Link>
             </li>
           </ul>
         </div>
       </div>
     </nav>
   );
-
-  //   <div className="border-b shadow-md flex justify-between px-10 py-4">
-  //     <Link
-  //       to={"/"}
-  //       className="text-2xl flex flex-col justify-center cursor-pointer logo-font tracking-widest font-bold"
-  //     >
-  //       BlogoSphere
-  //     </Link>
-  //     <div className="flex justify-center">
-  //       <NavLink
-  //         to={"/user-blogs"}
-  //         className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none "
-  //         end
-  //       >
-  //         My Blogs
-  //       </NavLink>
-  //       <NavLink
-  //         to={"/blogs"}
-  //         className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
-  //         end
-  //       >
-  //         View Blogs
-  //       </NavLink>
-  //       <NavLink
-  //         to={"/blogs/new"}
-  //         className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
-  //         end
-  //       >
-  //         Write New
-  //       </NavLink>
-  //       {localStorage.getItem("token") && (
-  //         <Link
-  //           to={"#"}
-  //           className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-lg pr-4 py-2 my-0.5 focus:outline-none outline-none"
-  //           onClick={handleLogout}
-  //         >
-  //           Logout
-  //         </Link>
-  //       )}
-  //       <div>
-  //         <Avatar
-  //           name={loggedInUserName}
-  //           className="w-10 h-10 text-lg mt-1"
-  //           type="link"
-  //         />
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 };

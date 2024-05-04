@@ -46,9 +46,14 @@ export const BlogCard = ({
         </div>
       </div>
       <div className="text-xl font-semibold">{title}</div>
-      <div className="text-md overflow-clip">
+      <div className="hidden sm:block text-md overflow-clip">
         {content.length > 200
           ? htmlToText(content).slice(0, 200) + "..."
+          : htmlToText(content)}
+      </div>
+      <div className="block sm:hidden text-md overflow-clip">
+        {content.length > 200
+          ? htmlToText(content).slice(0, 120) + "..."
           : htmlToText(content)}
       </div>
       <div className="flex justify-between items-center">
