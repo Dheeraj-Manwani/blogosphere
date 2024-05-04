@@ -134,38 +134,62 @@ export const Appbar = () => {
             <li>
               <NavLink
                 to="/"
-                className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:bg-transparent md:p-0 "
+                className="hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:bg-transparent md:p-0"
                 end
               >
                 Home
               </NavLink>
+              <Link
+                to="/"
+                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
+              >
+                Home
+              </Link>
             </li>
             <li>
               <NavLink
                 to="/blogs"
-                className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
+                className=" hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
                 end
               >
                 Blogs
               </NavLink>
+              <Link
+                to="/blogs"
+                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
+              >
+                Blogs
+              </Link>
             </li>
             <li>
               <NavLink
                 to="/user-blogs"
-                className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
+                className=" hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
                 end
               >
                 My Blogs
               </NavLink>
+              <Link
+                to="/user-blogs"
+                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
+              >
+                My Blogs
+              </Link>
             </li>
             <li>
               <NavLink
                 to="blogs/new"
-                className="text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent  md:p-0"
+                className="hidden md:block text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent  md:p-0"
                 end
               >
                 Write
               </NavLink>
+              <Link
+                to="blogs/new"
+                className="block md:hidden text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-2xl p-2"
+              >
+                Write
+              </Link>
             </li>
           </ul>
         </div>
