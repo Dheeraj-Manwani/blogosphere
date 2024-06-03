@@ -68,7 +68,7 @@ export class MyEditor extends Component<MyEditorProps> {
               editor={ClassicEditor}
               data={editorContent}
               // onReady={}
-              config={editorConfiguration}
+              // config={editorConfiguration}
               onChange={(_, editor) => {
                 const data = editor.getData();
                 // setEditorContent({ ...editorContent, content: data });

@@ -7,6 +7,7 @@ import { createNewBlog, updateBlog } from "../api/Blog";
 import { useSetRecoilState } from "recoil";
 import { modal } from "../recoil/atom/atom";
 import { MESSAGES } from "./../data/data.js";
+import { NewEditor } from "../components/NewEditor.js";
 
 export const NewBlog = () => {
   // const [editorContent, setEditorContent] = useState({
@@ -65,7 +66,7 @@ export const NewBlog = () => {
 
   return (
     <>
-      <MyEditor
+      <NewEditor
         setEditorContent={setEditorContent}
         editorContent={editorContent}
         setEditorTitle={setEditorTitle}
