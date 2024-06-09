@@ -4,3 +4,7 @@
   padding: 2rem;
   text-align: center;
 }
+
+.ck-widget image {
+  width: 50px !important;
+}

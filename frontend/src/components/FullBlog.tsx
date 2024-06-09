@@ -14,7 +14,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
             Posted on {formatDate(blog.publishedOn)}
           </div>
           <div
-            className="pt-4"
+            className="pt-4 overflow-hidden"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           ></div>
         </div>

@@ -96,6 +96,7 @@ export function Avatar({
         <span className=" text-gray-100 ">
           {name
             .split(" ")
+            .slice(0, 2)
             .map((n) => n[0].toUpperCase())
             .join("")}
         </span>
