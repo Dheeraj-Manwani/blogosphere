@@ -5,9 +5,22 @@ import {
   FileLoader,
 } from "@ckeditor/ckeditor5-upload/src/filerepository";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import axios from "axios";
-import { useState } from "react";
-import { BACKEND_URL } from "./../config";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { initializeApp } from "firebase/app";
+import { useRecoilValue } from "recoil";
+import { loggedUser } from "../recoil/atom/atom";
+
+const firebaseConfig = {
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDERS_ID,
+  appId: process.env.ADD_ID,
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app, `gs://${process.env.STORAGE_BUCKET}`);
 
 interface MyEditorProps {
   setEditorContent: any;
@@ -17,55 +30,6 @@ interface MyEditorProps {
   onSubmit: any;
 }
 
-function uploadAdapter(loader: FileLoader): UploadAdapter {
-  return {
-    upload: () => {
-      return new Promise(async (resolve, reject) => {
-        try {
-          const file = await loader.file;
-          console.log("file:          ", file);
-          // const response = await axios.post(
-          //   `${BACKEND_URL}/api/v1/blogs/file`,
-          //   {
-          //     files: file,
-          //     param: "asasscd",
-          //   },
-          //   {
-          //     headers: {
-          //       "Content-Type": "multipart/form-data",
-          //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-          //     },
-          //   }
-          // );
-          const response = await axios.post(
-            `${BACKEND_URL}/api/v1/blogs/file`,
-            {
-              files: file,
-              param: "asasscd",
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          );
-          resolve({
-            default: `${BACKEND_URL}/api/v1/blogs/file/${response.data.filename}`,
-          });
-        } catch (error) {
-          reject(error);
-        }
-      });
-    },
-    abort: () => {},
-  };
-}
-function uploadPlugin(editor: Editor) {
-  editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-    return uploadAdapter(loader);
-  };
-}
-
 export const NewEditor = ({
   setEditorContent,
   editorContent,
@@ -73,6 +37,54 @@ export const NewEditor = ({
   editorTitle,
   onSubmit,
 }: MyEditorProps) => {
+  const loggedInUser = useRecoilValue(loggedUser);
+  // const loggedInUserName = loggedInUser ? loggedInUser :
+  function uploadAdapter(loader: FileLoader): UploadAdapter {
+    return {
+      upload: () => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const file = await loader.file;
+            if (file) {
+              const splittedFile = file.name.split(".");
+              const extension = splittedFile[splittedFile.length - 1];
+
+              const fileNameWithoutSpecialChars = file?.name.replace(
+                /[^a-zA-Z0-9]/g,
+                ""
+              );
+              const fileName = fileNameWithoutSpecialChars.slice(
+                0,
+                -extension.length
+              );
+              console.log("file name:::::::::: ::::::::::", fileName);
+              const storageRef = ref(
+                storage,
+                `${loggedInUser.name ? loggedInUser.name : "Unknown"}/${
+                  fileName + "." + extension
+                }`
+              );
+
+              await uploadBytes(storageRef, file);
+
+              const url = await getDownloadURL(storageRef);
+              resolve({
+                default: url,
+              });
+            }
+          } catch (error) {
+            reject(error);
+          }
+        });
+      },
+      abort: () => {},
+    };
+  }
+  function uploadPlugin(editor: Editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return uploadAdapter(loader);
+    };
+  }
   const adjustHeight = () => {
     const textarea: any = document.getElementById("title");
     textarea.style.height = "auto";

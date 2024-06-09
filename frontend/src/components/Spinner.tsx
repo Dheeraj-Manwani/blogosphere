@@ -5,17 +5,19 @@ const cssProp: CSSProperties = {
   display: "block",
   margin: "0 auto",
   borderColor: "red",
-  position: "absolute",
+  position: "fixed",
   top: "45%",
   left: "42%",
+  zIndex: 100,
 };
 const cssPropCenter: CSSProperties = {
   display: "block",
   margin: "0 auto",
   borderColor: "red",
-  position: "absolute",
+  position: "fixed",
   top: "45%",
   left: "44%",
+  zIndex: 100,
 };
 
 function Spinner({ loading, type }: { loading: boolean; type: string }) {

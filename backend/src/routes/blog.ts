@@ -153,21 +153,6 @@ blogRouter.get("/user-blogs", async (c) => {
   return c.json(blogsDTO);
 });
 
-//* Upload file
-blogRouter.post("/file", async (c) => {
-  const body = await c.req.json();
-  console.log("body :::::::", body.file, body.param);
-
-  return c.json({ filename: "Something.png" });
-});
-
-//* Get file
-blogRouter.get("/file/:id", async (c) => {
-  console.log("c req:::::::", c.req);
-
-  return c.json("file recieved");
-});
-
 //* Get one blog
 blogRouter.get("/:id", async (c) => {
   const prisma = new PrismaClient({
