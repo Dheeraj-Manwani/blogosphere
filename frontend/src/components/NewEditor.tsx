@@ -23,18 +23,34 @@ function uploadAdapter(loader: FileLoader): UploadAdapter {
       return new Promise(async (resolve, reject) => {
         try {
           const file = await loader.file;
-          const response = await axios.request({
-            method: "POST",
-            url: `${BACKEND_URL}/upload_files`,
-            data: {
+          console.log("file:          ", file);
+          // const response = await axios.post(
+          //   `${BACKEND_URL}/api/v1/blogs/file`,
+          //   {
+          //     files: file,
+          //     param: "asasscd",
+          //   },
+          //   {
+          //     headers: {
+          //       "Content-Type": "multipart/form-data",
+          //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+          //     },
+          //   }
+          // );
+          const response = await axios.post(
+            `${BACKEND_URL}/api/v1/blogs/file`,
+            {
               files: file,
+              param: "asasscd",
             },
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
           resolve({
-            default: `${BACKEND_URL}/${response.data.filename}`,
+            default: `${BACKEND_URL}/api/v1/blogs/file/${response.data.filename}`,
           });
         } catch (error) {
           reject(error);
