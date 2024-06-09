@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { MyEditor } from "../components/Editor";
 import { useBlog } from "../hooks";
 import Spinner from "../components/Spinner";
 import { createNewBlog, updateBlog } from "../api/Blog";

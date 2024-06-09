@@ -57,7 +57,6 @@ export const NewEditor = ({
                 0,
                 -extension.length
               );
-              console.log("file name:::::::::: ::::::::::", fileName);
               const storageRef = ref(
                 storage,
                 `${loggedInUser.name ? loggedInUser.name : "Unknown"}/${
