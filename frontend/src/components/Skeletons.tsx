@@ -1,6 +1,6 @@
 import { Circle } from "./BlogCard";
 
-export const Skeletons = ({ type }: { type: string }) => {
+export const Skeletons = ({ type }: { type: "card" | "full-blog" | "" }) => {
   if (type === "card") {
     return (
       <>
@@ -14,6 +14,8 @@ export const Skeletons = ({ type }: { type: string }) => {
   if (type === "full-blog") {
     return <FullBlogSkeleton />;
   }
+
+  return <div>Loading...</div>;
 };
 
 const CardSkeleton = () => {

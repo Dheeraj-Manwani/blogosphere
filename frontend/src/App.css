@@ -8,3 +8,23 @@
 .ck-widget image {
   width: 50px !important;
 }
+
+/*
+ * FilePond Custom Styles
+ */
+.filepond--drop-label {
+  background-color: red !important;
+}
+
+.filepond--label-action {
+  text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+  background-color: #cb2222 !important;
+}
+
+.filepond--root {
+  width: 170px;
+  margin: 0 auto;
+}

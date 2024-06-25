@@ -1,4 +1,7 @@
-export const Icon = ({ type }: { type: string }) => {
+import spinner from "../assets/spinner-circle.gif";
+export type IconType = "arrow" | "edit" | "cross" | "spiral";
+
+export const Icon = ({ type, style }: { type: IconType; style?: string }) => {
   if (type === "arrow") {
     return (
       <svg
@@ -36,5 +39,26 @@ export const Icon = ({ type }: { type: string }) => {
         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
       </svg>
     );
+  }
+  if (type === "cross") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        // fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="black"
+        className={style}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </svg>
+    );
+  }
+  if (type === "spiral") {
+    return <img src={spinner} alt="" className={style} />;
   }
 };

@@ -1,6 +1,6 @@
 import { BlogCard } from "../components/BlogCard";
 import { Skeletons } from "../components/Skeletons";
-import { useBlogs } from "../hooks";
+import { useBlogs } from "../hooks/useBlogs";
 import { v4 as uuidv4 } from "uuid";
 
 export const Blogs = () => {

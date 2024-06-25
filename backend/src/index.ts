@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 
 import { blogRouter } from "./routes/blog";
+import { authRouter } from "./routes/auth";
 import { userRouter } from "./routes/user";
 
 const app = new Hono<{
@@ -13,7 +14,8 @@ const app = new Hono<{
 }>();
 
 app.use("/*", cors());
-app.route("api/v1", userRouter);
+app.route("api/v1", authRouter);
+app.route("api/v1/user", userRouter);
 app.route("api/v1/blogs", blogRouter);
 
 export default app;

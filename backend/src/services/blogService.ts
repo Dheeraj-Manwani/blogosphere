@@ -1,4 +1,4 @@
-import { Blog } from "./../../../frontend/src/hooks/index";
+import { Blog } from "./../../../frontend/src/hooks/useBlogs";
 
 export interface blogsDTO {
   id: string;

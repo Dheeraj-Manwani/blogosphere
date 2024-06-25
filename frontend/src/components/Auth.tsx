@@ -38,7 +38,11 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         postInputs
       );
       const token = response.data.token;
-      setLoggedUser({ name: response.data.name, email: response.data.email });
+      setLoggedUser({
+        id: response.data.id,
+        name: response.data.name,
+        email: response.data.email,
+      });
       localStorage.setItem("token", token);
       navigate("/blogs");
     } catch (err: any) {
@@ -86,6 +90,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 onChange={(e) =>
                   setPostInputs((c) => ({ ...c, name: e.target.value }))
                 }
+                value={postInputs.name}
                 disabled={loading}
               />
             )}
@@ -96,6 +101,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               onChange={(e) =>
                 setPostInputs((c) => ({ ...c, email: e.target.value }))
               }
+              value={postInputs.email}
               disabled={loading}
             />
 
@@ -106,15 +112,13 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               onChange={(e) =>
                 setPostInputs((c) => ({ ...c, password: e.target.value }))
               }
+              value={postInputs.password}
               disabled={loading}
             />
-            <button
-              type="button"
+            <Button
               onClick={sendRequest}
-              className="w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-5"
-            >
-              {type === "signin" ? "Sign in" : "Sign up"}
-            </button>
+              name={type === "signin" ? "Sign in" : "Sign up"}
+            />
           </div>
           <Spinner loading={loading} type="Auth" />
         </div>
@@ -125,37 +129,62 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
 interface LabelledInputType {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
   type?: string;
   disabled?: boolean;
+  style?: string;
 }
 
 export const LabelledInput = ({
   label,
   placeholder,
   onChange,
+  value,
   type,
   disabled,
+  style,
 }: LabelledInputType) => {
   return (
     <div>
-      <div>
-        <label className="block mb-2 text-sm font-extrabold text-black pt-4">
+      <div className={`${style ? style : "w-full"}`}>
+        <label className="block mb-0.5 text-md  tracking-wider text-black pt-4">
           {label}
         </label>
         <input
           type={type || "text"}
           id={label}
           onChange={onChange}
-          className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
-            disabled ? "bg-gray-300" : ""
-          }`}
+          className={`border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-full ${
+            disabled ? "bg-gray-200 cursor-not-allowed" : "bg-gray-50"
+          } `}
+          value={value}
           placeholder={placeholder}
           disabled={disabled}
           required
         />
       </div>
     </div>
+  );
+};
+
+interface ButtonPropsType {
+  onClick: any;
+  name: string;
+  style?: string;
+}
+
+export const Button = ({ onClick, name, style }: ButtonPropsType) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={` text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-5 ${
+        style ? style : "w-full"
+      }`}
+    >
+      {name}
+    </button>
   );
 };

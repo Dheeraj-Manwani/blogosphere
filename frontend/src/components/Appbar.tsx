@@ -13,7 +13,7 @@ export const Appbar = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    setLoggedUser({ name: "", email: "" });
+    setLoggedUser({ id: "", name: "", email: "" });
     navigate("/signin");
   };
 
@@ -73,15 +73,25 @@ export const Appbar = () => {
                 </li>
               )}
               {localStorage.getItem("token") && (
-                <li>
-                  <Link
-                    to="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-                    onClick={handleLogout}
-                  >
-                    Log out
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link
+                      to="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={`/profile/${loggedInUserName.id}`}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                    >
+                      My Profile
+                    </Link>
+                  </li>
+                </>
               )}
               {!localStorage.getItem("token") && (
                 <li>
@@ -153,7 +163,7 @@ export const Appbar = () => {
                 Blogs
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/user-blogs"
                 className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
@@ -161,7 +171,7 @@ export const Appbar = () => {
               >
                 My Blogs
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="blogs/new"

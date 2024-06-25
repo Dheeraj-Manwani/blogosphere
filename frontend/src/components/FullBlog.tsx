@@ -1,4 +1,4 @@
-import { Blog } from "../hooks";
+import { Blog } from "../hooks/useBlogs";
 import { formatDate } from "../util/util";
 import { Avatar } from "./BlogCard";
 
