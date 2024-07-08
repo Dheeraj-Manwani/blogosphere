@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 export interface User {
   id: string;
@@ -15,6 +16,7 @@ export const useUser = (id: string) => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string>("");
   const [user, setUser] = useState<User>({ id: "", name: "", email: "" });
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -35,12 +37,18 @@ export const useUser = (id: string) => {
   }, [id]);
 
   const updateUser = useCallback(
-    async (id: string, description: string, profileImage: string) => {
+    async (
+      id: string,
+      name: string,
+      email: string,
+      description: string,
+      profileImage: string
+    ) => {
       setSubmitting(true);
       console.log("iside update user hook", user);
       const res = await axios.put(
         `${BACKEND_URL}/api/v1/user`,
-        { id, description: description, profileImage },
+        { id, name, email, description, profileImage },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,7 +56,6 @@ export const useUser = (id: string) => {
         }
       );
       setSubmitting(false);
-
       return res.data;
     },
     []

@@ -22,13 +22,17 @@ function App() {
       loggedInUser?.name === "" &&
       loggedInUser?.email === ""
     ) {
-      const decoded: { id: string; name: string; email: string } = jwtDecode(
-        localStorage.getItem("token") || ""
-      );
+      const decoded: {
+        id: string;
+        name: string;
+        email: string;
+        profileImage: string;
+      } = jwtDecode(localStorage.getItem("token") || "");
       setLoggedUser({
         id: decoded.id,
         name: decoded.name,
         email: decoded.email,
+        profileImage: decoded.profileImage,
       });
     }
   }, []);

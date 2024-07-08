@@ -33,6 +33,7 @@ export const UserBlogs = () => {
             <BlogCard
               id={blog.id}
               authorName={blog.authorName}
+              authorImage={blog.profileImage}
               title={blog.title}
               content={blog.content}
               publishedDate={blog.publishedOn}

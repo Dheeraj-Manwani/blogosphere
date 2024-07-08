@@ -51,3 +51,14 @@ export const formatDate = (dateString: string) => {
 
   return formattedDate;
 };
+
+export const getCamelCaseString = (str: string) => {
+  if (!str) return null;
+  const words = str.toLowerCase().split(" ");
+  return words.map((w) => w[0].toUpperCase() + w.substring(1)).join(" ");
+};
+
+export const checkValidImageExtension = (str: string) => {
+  const STR = str.toUpperCase();
+  return STR === "PNG" || STR === "JPG" || STR === "GIF" || STR === "JPEG";
+};

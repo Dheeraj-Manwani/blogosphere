@@ -1,27 +1,11 @@
-// Import React FilePond
-// import { FilePond, registerPlugin } from "react-filepond";
-
-// // Import FilePond styles
-// import "filepond/dist/filepond.min.css";
-
-// // Import the Image EXIF Orientation and Image Preview plugins
-// import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-// import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-// import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { storage } from "./NewEditor";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useRecoilValue } from "recoil";
 import { loggedUser } from "../recoil/atom/atom";
 import { useState } from "react";
-import profile from "./../assets/profile.png";
 import { Icon } from "./Icon";
+import { checkValidImageExtension } from "../util/util";
 
-// import { FilePondInitialFile } from "filepond";
-
-// Register the plugins
-// registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
-
-// Our app
 export function FilePond({
   src,
   setSrc,
@@ -34,16 +18,18 @@ export function FilePond({
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSpinnerVisible(true);
       console.log("inside handle file change", e.target.files[0]);
       const file = e.target.files[0];
       const splittedFile = file.name.split(".");
       const extension = splittedFile[splittedFile.length - 1];
-
+      if (!checkValidImageExtension(extension)) {
+        return;
+      }
       const fileNameWithoutSpecialChars = file?.name.replace(
         /[^a-zA-Z0-9]/g,
         ""
       );
+      setSpinnerVisible(true);
       const fileName = fileNameWithoutSpecialChars.slice(0, -extension.length);
       const storageRef = ref(
         storage,
@@ -110,71 +96,7 @@ export function FilePond({
             />
           </div>
         )}
-        {/* <div style={{ color: "#999" }}> </div> */}
       </div>
-      {/* <FilePond
-        oninit={() => {
-          const filepond = document.querySelector(".filepond--drop-label");
-          filepond?.classList.add("bg-gray-50");
-          filepond?.classList.add("text-black");
-          filepond?.classList.add("text-md");
-          filepond?.classList.add("tracking-wider");
-          filepond?.classList.add("cursor-pointer");
-          const filepondRoot = document.querySelector(".filepond--root");
-          filepondRoot?.classList.add("border");
-          filepondRoot?.classList.add("border-gray-300");
-        }}
-        // files={file}
-        allowMultiple={false}
-        maxFiles={1}
-        // files={[
-        //   "https://firebasestorage.googleapis.com/v0/b/blogosphere-app.appspot.com/o/Dheeraj%20Manwani%2Fprofile-photo%2Fmic.png?alt=media&token=892b1de4-5c50-49cb-9a99-e0c9e4c6bda5",
-        // ]}
-        server={{
-          process: async (fieldName, file, metadata, load, error) => {
-            const splittedFile = file.name.split(".");
-            const extension = splittedFile[splittedFile.length - 1];
-
-            const fileNameWithoutSpecialChars = file?.name.replace(
-              /[^a-zA-Z0-9]/g,
-              ""
-            );
-            const fileName = fileNameWithoutSpecialChars.slice(
-              0,
-              -extension.length
-            );
-            const storageRef = ref(
-              storage,
-              `${
-                loggedInUser.name ? loggedInUser.name : "Unknown"
-              }/profile-photo/${fileName + "." + extension}`
-            );
-
-            await uploadBytes(storageRef, file);
-
-            const url = await getDownloadURL(storageRef);
-            console.log(url);
-            load("done ");
-            // error("nsvfisnvk");
-            return {
-              abort: () => {},
-            };
-          },
-          revert: async () => {
-            console.log("revert ran ddd");
-          },
-        }}
-        name="files"
-        labelIdle='Drag & Drop profile pic or <span class="filepond--label-action">Browse</span>'
-        imagePreviewHeight={10}
-        onremovefile={() => {
-          console.log("remove file called");
-        }}
-        stylePanelLayout="compact circle"
-        styleLoadIndicatorPosition="center bottom"
-        styleButtonRemoveItemPosition="center bottom"
-        acceptedFileTypes={["image/png"]}
-      /> */}
     </div>
   );
 }

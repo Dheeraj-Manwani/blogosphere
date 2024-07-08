@@ -61,7 +61,6 @@ const FullBlogSkeleton = () => {
           <div className="h-5 bg-gray-300 rounded-full mt-2 w-48"></div>
           <div className="h-3 bg-gray-200 rounded-full my-1 mt-4 w-32"></div>
 
-          {/* <div className="pt-4">{htmlToText(blog.content)}</div> */}
           <div className="h-3 bg-gray-200 rounded-full my-1 mt-10 w-full"></div>
           <div className="h-3 bg-gray-200 rounded-full my-1 mt-3 w-full"></div>
           <div className="h-3 bg-gray-200 rounded-full my-1 mt-3 w-4/6"></div>

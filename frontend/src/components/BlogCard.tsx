@@ -1,10 +1,11 @@
-import profile from "./../assets/profile.png";
 import { Button } from "./Button";
-import { formatDate } from "../util/util";
+import { formatDate, getCamelCaseString } from "../util/util";
+import { Avatar } from "./Avatar";
 
 interface BlogCardProps {
   id: string;
   authorName: string;
+  authorImage?: string;
   title: string;
   content: string;
   publishedDate: string;
@@ -12,31 +13,34 @@ interface BlogCardProps {
 }
 export function htmlToText(html: string): string {
   let temp = document.createElement("div");
-  temp.innerHTML = html;
+  temp.innerHTML = html.replace(/<figure.*?<\/figure>/gs, "");
   return temp.textContent || "";
 }
 
 export const BlogCard = ({
   id,
   authorName,
+  authorImage,
   title,
   content,
   publishedDate,
   type = "",
 }: BlogCardProps) => {
+  console.log("content ", htmlToText(content));
   return (
     <div className="border rounded-lg shadow-lg p-4 my-4 w-11/12 max-w-screen-md m-auto">
       <div className="flex mb-1">
         <div>
           <Avatar
             name={authorName}
+            profileImage={authorImage || ""}
             className={`${
               authorName ? "w-6 h-6" : "w-5 h-5 translate-y-1"
             } text-xs`}
           />
         </div>
         <div className="font-extralight pl-2 text-sm flex justify-center flex-col">
-          {authorName || "Unknown"}
+          {authorName ? getCamelCaseString(authorName) : "Unknown"}
         </div>
         <div className="flex justify-center flex-col pl-2">
           <Circle />
@@ -74,39 +78,4 @@ export const BlogCard = ({
 
 export function Circle() {
   return <div className="h-1 w-1 rounded-full bg-slate-500"></div>;
-}
-
-export function Avatar({
-  name,
-  className = "",
-  type,
-}: {
-  name: string;
-  className?: string;
-  type?: string;
-}) {
-  return (
-    <div
-      className={
-        `relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gray-600 ` +
-        className
-      }
-    >
-      {name && (
-        <span className=" text-gray-100 ">
-          {name
-            .split(" ")
-            .slice(0, 2)
-            .map((n) => n[0].toUpperCase())
-            .join("")}
-        </span>
-      )}
-      {!name && type === "link" && (
-        <img src={profile} alt="login" className="bg-white cursor-pointer" />
-      )}
-      {!name && type !== "link" && (
-        <img src={profile} alt="login" className="bg-white" />
-      )}
-    </div>
-  );
 }

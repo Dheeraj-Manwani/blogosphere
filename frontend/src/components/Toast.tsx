@@ -1,7 +1,4 @@
-import { Icon } from "./Icon";
-import success from "../assets/success.gif";
-import globeMusic from "../assets/globe-music.gif";
-import error from "../assets/error.gif";
+import { Icon, IconType } from "./Icon";
 import { useSetRecoilState } from "recoil";
 import { toast } from "../recoil/atom/atom";
 import { useEffect } from "react";
@@ -52,7 +49,7 @@ export const Toast = ({
     if (closeRequired) {
       setTimeout(() => {
         closeToast();
-      }, 3500);
+      }, 5000);
     }
   }, [closeRequired]);
 
@@ -60,18 +57,16 @@ export const Toast = ({
     <>
       <div
         id="toast-success"
-        className={`fixed right-4 bottom-2 flex items-center w-full max-w-xs p-4 mb-4 text-black font-semibold ${themeColor} rounded-lg drop-shadow-lg`}
+        className={`fixed right-4 bottom-2 flex items-center w-full max-w-[21rem] p-4 mb-4 text-black font-semibold ${themeColor} rounded-lg drop-shadow-lg`}
         role="alert"
       >
-        <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg ">
-          {type === "success" && <img src={success} className="w-10 h-10" />}
-          {type === "info" && <img src={globeMusic} className="w-10 h-10" />}
-          {type === "error" && <img src={error} className="w-10 h-10" />}
+        <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg mt-0.5">
+          <Icon type={type as IconType} />
         </div>
-        <div className="ms-3 font-normal tracking-wide">{message}</div>
+        <div className="ms-3 me-3 font-normal">{message}</div>
         <button
           type="button"
-          className={`ms-auto -mx-1.5 -my-1.5 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 ${themeColor}`}
+          className={`ms-auto -mx-1.5 -my-1.5 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 inline-flex items-center justify-center h-8 w-8 ${themeColor}`}
           data-dismiss-target="#toast-success"
           aria-label="Close"
           onClick={closeToast}

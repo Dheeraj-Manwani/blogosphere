@@ -42,6 +42,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         id: response.data.id,
         name: response.data.name,
         email: response.data.email,
+        profileImage: response.data.profileImage,
       });
       localStorage.setItem("token", token);
       navigate("/blogs");

@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 export const loggedUser = atom({
   key: "loggedUserState",
-  default: { id: "", name: "", email: "" },
+  default: { id: "", name: "", email: "", profileImage: "" },
 });
 
 export const modal = atom({
@@ -13,7 +13,7 @@ export const modal = atom({
 export const toast = atom({
   key: "toast",
   default: {
-    toastVisible: true,
+    toastVisible: false,
     toastMessage: "Loading...",
     toastType: "info",
     isToastCloseRequired: true,

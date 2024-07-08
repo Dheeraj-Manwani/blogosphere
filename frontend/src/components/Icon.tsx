@@ -1,5 +1,15 @@
 import spinner from "../assets/spinner-circle.gif";
-export type IconType = "arrow" | "edit" | "cross" | "spiral";
+import success from "../assets/success.gif";
+import globeMusic from "../assets/globe-music.gif";
+import error from "../assets/error.gif";
+export type IconType =
+  | "arrow"
+  | "edit"
+  | "cross"
+  | "spiral"
+  | "success"
+  | "info"
+  | "error";
 
 export const Icon = ({ type, style }: { type: IconType; style?: string }) => {
   if (type === "arrow") {
@@ -60,5 +70,14 @@ export const Icon = ({ type, style }: { type: IconType; style?: string }) => {
   }
   if (type === "spiral") {
     return <img src={spinner} alt="" className={style} />;
+  }
+  if (type === "success") {
+    return <img src={success} className="w-10 h-10" />;
+  }
+  if (type === "info") {
+    return <img src={globeMusic} className="w-10 h-10" />;
+  }
+  if (type === "error") {
+    return <img src={error} className="w-10 h-10" />;
   }
 };
