@@ -10,7 +10,7 @@ import { initializeApp } from "firebase/app";
 import { useRecoilValue } from "recoil";
 import { loggedUser } from "../recoil/atom/atom";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
   projectId: process.env.PROJECT_ID,
@@ -19,8 +19,8 @@ const firebaseConfig = {
   appId: process.env.ADD_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app, `gs://${process.env.STORAGE_BUCKET}`);
+export const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app, `gs://${process.env.STORAGE_BUCKET}`);
 
 interface MyEditorProps {
   setEditorContent: any;
@@ -38,7 +38,6 @@ export const NewEditor = ({
   onSubmit,
 }: MyEditorProps) => {
   const loggedInUser = useRecoilValue(loggedUser);
-  // const loggedInUserName = loggedInUser ? loggedInUser :
   function uploadAdapter(loader: FileLoader): UploadAdapter {
     return {
       upload: () => {
@@ -84,25 +83,21 @@ export const NewEditor = ({
       return uploadAdapter(loader);
     };
   }
-  const adjustHeight = () => {
-    const textarea: any = document.getElementById("title");
-    textarea.style.height = "auto";
-    textarea.style.height = textarea.scrollHeight + "px";
-  };
+  // const adjustHeight = () => {
+  //   const textarea: any = document.getElementById("title");
+  //   textarea.style.height = "auto";
+  //   textarea.style.height = textarea.scrollHeight + "px";
+  // };
   return (
     <div className="w-full flex flex-col mb-6">
       <form className="mx-auto px-4 w-full max-w-5xl ">
         <div className="w-full text-3xl lg:text-4xl font-semibold">
-          <textarea
+          <TextArea
             id="title"
-            className="w-full mt-9 focus:outline-none"
+            setValue={setEditorTitle}
             value={editorTitle}
             placeholder="Blog title"
-            onChange={(e) => {
-              // setEditorContent({ ...editorContent, title: e.target.value });
-              setEditorTitle(e.target.value);
-              adjustHeight();
-            }}
+            style="mt-9 w-full"
           />
         </div>
         <div>
@@ -137,20 +132,55 @@ export const NewEditor = ({
         </div>
       </form>
     </div>
+  );
+};
 
-    //   <CKEditor
-    //     config={{
-    //       // @ts-ignore
-    //       extraPlugins: [uploadPlugin],
-    //     }}
-    //     editor={ClassicEditor}
-    //     onReady={(editor) => {}}
-    //     onBlur={(event, editor) => {}}
-    //     onFocus={(event, editor) => {}}
-    //     onChange={(event, editor) => {
-    //       setEditor(editor.getData());
-    //     }}
-    //     data={editor}
-    //   />
+interface TextAreaProps {
+  id: string;
+  value: string;
+  setValue: (arg0: string) => void;
+  style?: string;
+  rows?: number;
+  placeholder?: string;
+  label?: string;
+}
+
+export const TextArea = ({
+  id,
+  value,
+  setValue,
+  style,
+  rows,
+  placeholder,
+  label,
+}: TextAreaProps) => {
+  const adjustHeight = (id: string) => {
+    const textarea: any = document.getElementById(id);
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
+  };
+  return (
+    <>
+      {label && (
+        <label className="block mb-0.5 text-md tracking-wider text-black pt-4">
+          {label}
+        </label>
+      )}
+
+      <textarea
+        id="title"
+        className={`focus:outline-none rounded-md p-2 ${
+          style ? style : "w-full"
+        }`}
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => {
+          // setEditorContent({ ...editorContent, title: e.target.value });
+          setValue(e.target.value);
+          adjustHeight(id);
+        }}
+        rows={rows}
+      />
+    </>
   );
 };

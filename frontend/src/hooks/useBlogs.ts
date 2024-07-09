@@ -7,6 +7,8 @@ export interface Blog {
   content: string;
   id: string;
   authorName: string;
+  profileImage?: string;
+  authorDescription?: string;
   publishedOn: string;
   author: {
     name: string;

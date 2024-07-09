@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { Icon } from "./Icon";
+import { Icon, IconType } from "./Icon";
 
 export const Button = ({
   icon,
   href,
   text = "",
 }: {
-  icon?: string;
+  icon?: IconType;
   href: string;
   text?: string;
 }) => {

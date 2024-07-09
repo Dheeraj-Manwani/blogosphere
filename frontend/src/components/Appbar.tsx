@@ -1,20 +1,18 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Avatar } from "./BlogCard";
+import { Link, NavLink, redirect } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loggedUser } from "../recoil/atom/atom";
 import { useState } from "react";
+import { Avatar } from "./Avatar";
 
 export const Appbar = () => {
   const [menuExpand, setMenuExpand] = useState<boolean>(false);
   const [profileExpand, setProfileExpand] = useState<boolean>(false);
-  const navigate = useNavigate();
-
   const [loggedInUserName, setLoggedUser] = useRecoilState(loggedUser);
 
   const handleLogout = () => {
+    redirect("/");
     localStorage.clear();
-    setLoggedUser({ name: "", email: "" });
-    navigate("/signin");
+    setLoggedUser({ id: "", name: "", email: "", profileImage: "" });
   };
 
   return (
@@ -42,6 +40,7 @@ export const Appbar = () => {
               name={loggedInUserName.name}
               className="w-10 h-10 text-lg mt-1"
               type="link"
+              profileImage={loggedInUserName.profileImage}
             />
           </button>
           {/* <!-- Dropdown menu --> */}
@@ -63,25 +62,34 @@ export const Appbar = () => {
             )}
             <ul className="py-2" onClick={() => setProfileExpand(false)}>
               {localStorage.getItem("token") && (
-                <li>
-                  <Link
-                    to="/user-blogs"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-                  >
-                    My Blogs
-                  </Link>
-                </li>
-              )}
-              {localStorage.getItem("token") && (
-                <li>
-                  <Link
-                    to="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
-                    onClick={handleLogout}
-                  >
-                    Log out
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link
+                      to={`/profile/${loggedInUserName.id}`}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                    >
+                      My Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/user-blogs"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                    >
+                      My Blogs
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      to="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </Link>
+                  </li>
+                </>
               )}
               {!localStorage.getItem("token") && (
                 <li>
@@ -153,7 +161,7 @@ export const Appbar = () => {
                 Blogs
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/user-blogs"
                 className=" text-gray-400 hover:text-gray-800 transition-all duration-300 font-semibold text-xl md:hover:bg-transparent md:p-0"
@@ -161,7 +169,7 @@ export const Appbar = () => {
               >
                 My Blogs
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="blogs/new"

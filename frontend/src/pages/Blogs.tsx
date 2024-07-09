@@ -1,6 +1,6 @@
 import { BlogCard } from "../components/BlogCard";
 import { Skeletons } from "../components/Skeletons";
-import { useBlogs } from "../hooks";
+import { useBlogs } from "../hooks/useBlogs";
 import { v4 as uuidv4 } from "uuid";
 
 export const Blogs = () => {
@@ -17,6 +17,7 @@ export const Blogs = () => {
             <BlogCard
               id={blog.id}
               authorName={blog.authorName}
+              authorImage={blog.profileImage}
               title={blog.title}
               content={blog.content}
               publishedDate={blog.publishedOn}

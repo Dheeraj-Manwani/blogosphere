@@ -21,8 +21,7 @@ export const blogRouter = new Hono<{
   };
 }>();
 
-//* Middleware to check bearer token
-blogRouter.use("/*", async (c, next) => {
+export const blogMiddleWare = async (c, next) => {
   try {
     const jwt = c.req.header("Authorization");
     if (jwt && jwt.length > 12) {
@@ -39,7 +38,10 @@ blogRouter.use("/*", async (c, next) => {
     c.status(401);
     return c.json({ error: "error occured while processing token" });
   }
-});
+};
+
+//* Middleware to check bearer token
+blogRouter.use("/*", blogMiddleWare);
 
 //* Create blog for an auther
 blogRouter.post("/", async (c) => {
@@ -141,6 +143,7 @@ blogRouter.get("/user-blogs", async (c) => {
       author: {
         select: {
           name: true,
+          profileImage: true,
         },
       },
     },
@@ -151,6 +154,13 @@ blogRouter.get("/user-blogs", async (c) => {
   });
 
   return c.json(blogsDTO);
+});
+
+blogRouter.post("/profile-pic", async (c) => {
+  const body = await c.req.formData();
+
+  return c.json({ message: "file created successfully!!!" });
+  console.log("scaicnkad", body);
 });
 
 //* Get one blog
@@ -173,6 +183,8 @@ blogRouter.get("/:id", async (c) => {
       author: {
         select: {
           name: true,
+          profileImage: true,
+          description: true,
         },
       },
     },

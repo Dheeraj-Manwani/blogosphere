@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BlogCard } from "../components/BlogCard";
 import { v4 as uuidv4 } from "uuid";
-import { useBlogs } from "../hooks";
+import { useBlogs } from "../hooks/useBlogs";
 import { modal } from "../recoil/atom/atom";
 import { useSetRecoilState } from "recoil";
 import { Skeletons } from "../components/Skeletons";
@@ -33,6 +33,7 @@ export const UserBlogs = () => {
             <BlogCard
               id={blog.id}
               authorName={blog.authorName}
+              authorImage={blog.profileImage}
               title={blog.title}
               content={blog.content}
               publishedDate={blog.publishedOn}

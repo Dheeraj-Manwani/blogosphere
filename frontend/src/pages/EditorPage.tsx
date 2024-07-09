@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useBlog } from "../hooks";
+import { useBlog } from "../hooks/useBlogs.js";
 import Spinner from "../components/Spinner";
 import { createNewBlog, updateBlog } from "../api/Blog";
 import { useSetRecoilState } from "recoil";
@@ -9,10 +9,6 @@ import { MESSAGES } from "./../data/data.js";
 import { NewEditor } from "../components/NewEditor.js";
 
 export const NewBlog = () => {
-  // const [editorContent, setEditorContent] = useState({
-  //   title: "",
-  //   content: "",
-  // });
   const [editorContent, setEditorContent] = useState("");
   const [editorTitle, setEditorTitle] = useState("");
 

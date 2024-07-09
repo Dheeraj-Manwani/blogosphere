@@ -11,6 +11,7 @@ import { UserBlogs } from "./pages/UserBlogs";
 import { Root } from "./pages/Root";
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
+import { Profile } from "./pages/Profile";
 
 function App() {
   const [loggedInUser, setLoggedUser] = useRecoilState(loggedUser);
@@ -21,10 +22,18 @@ function App() {
       loggedInUser?.name === "" &&
       loggedInUser?.email === ""
     ) {
-      const decoded: { name: string; email: string } = jwtDecode(
-        localStorage.getItem("token") || ""
-      );
-      setLoggedUser({ name: decoded.name, email: decoded.email });
+      const decoded: {
+        id: string;
+        name: string;
+        email: string;
+        profileImage: string;
+      } = jwtDecode(localStorage.getItem("token") || "");
+      setLoggedUser({
+        id: decoded.id,
+        name: decoded.name,
+        email: decoded.email,
+        profileImage: decoded.profileImage,
+      });
     }
   }, []);
 
@@ -37,6 +46,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/blogs" element={<Blogs />} />
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="/user-blogs" element={<UserBlogs />} />
             <Route path="/blogs/:id" element={<Blog />} />
             <Route path="/blogs/new" element={<NewBlog />} />
