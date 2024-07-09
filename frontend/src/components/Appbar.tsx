@@ -1,4 +1,4 @@
-import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
+import { Link, NavLink, redirect } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loggedUser } from "../recoil/atom/atom";
 import { useState } from "react";
@@ -7,8 +7,6 @@ import { Avatar } from "./Avatar";
 export const Appbar = () => {
   const [menuExpand, setMenuExpand] = useState<boolean>(false);
   const [profileExpand, setProfileExpand] = useState<boolean>(false);
-  const navigate = useNavigate();
-
   const [loggedInUserName, setLoggedUser] = useRecoilState(loggedUser);
 
   const handleLogout = () => {

@@ -2,7 +2,7 @@ import { Button, LabelledInput } from "../components/Auth";
 import { FilePond } from "../components/Filepond";
 import { v4 as uuidv4 } from "uuid";
 import { TextArea } from "../components/NewEditor";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { loggedUser, modal, toast } from "../recoil/atom/atom";
@@ -12,7 +12,6 @@ import { MESSAGES } from "../data/data";
 
 export const Profile = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [loggedInUser, setLoggedUser] = useRecoilState(loggedUser);
 
   if (!id) {

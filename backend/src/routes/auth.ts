@@ -29,15 +29,20 @@ authRouter.post("/signup", async (c) => {
         email: body.email,
         name: body.name,
         password: body.password,
+        profileImage: "",
       },
     });
 
-    const token = await sign(
-      { id: user.id, name: body.name, email: body.email },
-      c.env.JWT_SECRET
-    );
+    console.log("sign up ", user);
+    const userDetails = {
+      id: user.id,
+      name: body.name,
+      email: body.email,
+      profileImage: "",
+    };
+    const token = await sign(userDetails, c.env.JWT_SECRET);
 
-    return c.json({ token, name: body.name, email: body.email });
+    return c.json({ token, ...userDetails });
   } catch (e) {
     c.status(409);
     console.log(e);
@@ -70,21 +75,13 @@ authRouter.post("/signin", async (c) => {
     return c.json({ error: true, message: "Incorrect username or password!!" });
   }
 
-  const jwt = await sign(
-    { id: user.id, name: user.name, email: body.email },
-    c.env.JWT_SECRET
-  );
-  return c.json({ token: jwt, name: user.name, email: body.email });
-});
+  const userDetails = {
+    id: user.id,
+    name: user.name,
+    email: body.email,
+    profileImage: user.profileImage,
+  };
 
-// authRouter.get("/logged-in-user-name", async (c) => {
-//   const jwt = c.req.header("Authorization");
-//   if (!jwt) {
-//     return c.json({ name: "" });
-//   }
-//   const payload = await verify(jwt, c.env.JWT_SECRET);
-//   if (!payload) {
-//     return c.json({ name: "" });
-//   }
-//   return c.json({ name: payload.name });
-// });
+  const jwt = await sign(userDetails, c.env.JWT_SECRET);
+  return c.json({ token: jwt, ...userDetails });
+});

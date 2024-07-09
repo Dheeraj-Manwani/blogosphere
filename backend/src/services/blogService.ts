@@ -57,6 +57,7 @@ export const getAllBlogs = async (prisma: any, c: any) => {
       author: {
         select: {
           name: true,
+          profileImage: true,
         },
       },
     },
@@ -71,6 +72,8 @@ export const getAllBlogs = async (prisma: any, c: any) => {
 export const blogsDTOConverter = (blog: any) => {
   const { author, ...blogObj } = blog;
   blogObj.authorName = blog.author?.name;
+  blogObj.profileImage = blog.author?.profileImage;
+  blogObj.authorDescription = blog.author?.description;
   // console.log(blogObj);
   return blogObj;
 };

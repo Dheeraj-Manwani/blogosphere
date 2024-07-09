@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
-import { useNavigate } from "react-router-dom";
 
 export interface User {
   id: string;
@@ -16,7 +15,6 @@ export const useUser = (id: string) => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string>("");
   const [user, setUser] = useState<User>({ id: "", name: "", email: "" });
-  const navigate = useNavigate();
 
   useEffect(() => {
     axios

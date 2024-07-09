@@ -143,6 +143,7 @@ blogRouter.get("/user-blogs", async (c) => {
       author: {
         select: {
           name: true,
+          profileImage: true,
         },
       },
     },
@@ -182,6 +183,8 @@ blogRouter.get("/:id", async (c) => {
       author: {
         select: {
           name: true,
+          profileImage: true,
+          description: true,
         },
       },
     },

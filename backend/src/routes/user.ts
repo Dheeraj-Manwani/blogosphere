@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { blogMiddleWare } from "./blog";
+import { sign } from "hono/jwt";
 
 export const userRouter = new Hono<{
   Bindings: {
@@ -71,7 +72,15 @@ userRouter.put("/", async (c) => {
       },
     });
 
-    return c.json({ message: "update successfull" });
+    const userDetails = {
+      id: body.id,
+      name: body.name,
+      email: body.email,
+      profileImage: body.profileImage,
+    };
+    const token = await sign(userDetails, c.env.JWT_SECRET);
+
+    return c.json({ message: "update successfull", token });
   } catch (e) {
     c.status(500);
     console.log(e);
