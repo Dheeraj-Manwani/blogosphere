@@ -4,7 +4,7 @@ import { Avatar } from "./Avatar";
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
   return (
-    <div>
+    <div className="mb-52">
       <div className="flex flex-col gap-7 lg:flex-row px-10 w-full pt-200 max-w-screen-xl py-12 lg:ml-10">
         <div className="w-full lg:w-8/12">
           <div className="text-4xl lg:text-5xl font-extrabold">

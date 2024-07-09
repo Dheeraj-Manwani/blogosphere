@@ -37,7 +37,7 @@ export const Profile = () => {
   }
 
   if (loading) {
-    return <Skeletons type="" />;
+    return <Skeletons type="profile" />;
   }
 
   return (
