@@ -27,6 +27,7 @@ export function Avatar({
       {name && !profileImage && (
         <span className=" text-gray-100 ">
           {name
+            .trim()
             .split(" ")
             .slice(0, 2)
             .map((n) => n[0].toUpperCase())
